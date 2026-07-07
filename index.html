@@ -7,14 +7,12 @@
   <meta name="description"
     content="A client-facing showcase of live AWS demos focused on secure design, governance, and operational readiness." />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
-  <link rel="shortcut icon" href="favicon.ico">
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/android-chrome-512x512.png">
+  <link rel="shortcut icon" href="assets/favicon.ico">
   <title>Live AWS Demos | Secure Design in Practice</title>
   <style>
     :root {
@@ -366,7 +364,7 @@
         <div>
           <a href="https://www.mousa-cloud.com">
             <video autoplay muted>
-              <source src="resized-logo.mp4" type='video/mp4'>
+              <source src="assets/resized-logo.mp4" type='video/mp4'>
               Your browser does not support the video tag.
             </video>
           </a>
@@ -382,7 +380,6 @@
 
   <main>
     <div class="wrap hero">
-      <div class="eyebrow">Client-facing AWS demos built to prove real hands-on capability</div>
       <h1>See secure design choices turned into working AWS implementations.</h1>
       <p class="lead">
         This page is for clients or prospects who want more than claims. Each demo shows a concrete architectural
@@ -431,7 +428,7 @@
               and Lambda. This shows how restricted access, controlled delivery, and serverless logic can work together.
             </p>
             <div class="spacer"></div>
-            <a class="more" href="secure-file-upload/">Open demo →</a>
+            <a class="more" href="secure-file-upload/" target="_blank">Open demo →</a>
           </article>
 
           <article class="card">
@@ -535,9 +532,9 @@
     </div>
   </div>
 
-  <script src="common.js"></script>
+  <script src="js/common.js"></script>
 
-  <script src="cookie-consent.js"></script>
+  <script src="js/cookie-consent.js"></script>
 
   <script>
     fetch('footer.html')
