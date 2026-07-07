@@ -568,8 +568,6 @@
     }
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/spark-md5@3.0.2/spark-md5.min.js"></script>
-
 </head>
 
 <body>
@@ -578,12 +576,14 @@
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
-        <svg class="logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-          aria-label="Portal logo">
-          <path d="M12 3l7 4v10l-7 4-7-4V7l7-4Z"></path>
-          <path d="M8.5 9.5h7v5h-7z"></path>
-          <path d="M10.5 12h3"></path>
-        </svg>
+        <div>
+          <a href="https://www.mousa-cloud.com">
+            <video autoplay muted>
+              <source src="../resized-logo.mp4" type='video/mp4'>
+              Your browser does not support the video tag.
+            </video>
+          </a>
+        </div>
         <span>Secure AWS Upload Portal</span>
       </div>
       <nav class="nav" aria-label="Primary">
@@ -601,7 +601,7 @@
       <div class="container hero-grid">
         <div>
           <span class="eyebrow">AWS S3 · API Gateway · Lambda</span>
-          <h1>Client-facing secure document intake, presented as a live AWS proof of capability.</h1>
+          <h1>Secure Document Intake Using Presigned S3 URL</h1>
           <p class="lead">This static frontend is wired to a live API that requests a presigned S3 upload URL from
             Lambda, then uploads the selected file directly from the browser to a private S3 bucket with short-lived
             access.</p>
@@ -613,22 +613,28 @@
         <aside class="hero-panel" aria-label="Demo summary">
           <div class="stat-list">
             <div class="stat">
-              <span class="faint">Hosting model</span>
-              <strong>Static frontend, live AWS backend</strong>
-              <span class="muted">The page can be hosted on S3 and CloudFront while the secure action stays in API
-                Gateway and Lambda.</span>
+              <span class="faint">Delivery model</span>
+              <strong>Simple front end, secure AWS workflow</strong>
+              <span class="muted">
+                The experience is presented as a clean static site, while the secure upload flow is handled by AWS
+                services behind the scenes.
+              </span>
             </div>
             <div class="stat">
-              <span class="faint">Security story</span>
-              <strong>Private bucket, temporary upload access</strong>
-              <span class="muted">Users never receive long-lived AWS permissions, only a short-lived presigned
-                URL.</span>
+              <span class="faint">Security approach</span>
+              <strong>Private storage with time-limited access</strong>
+              <span class="muted">
+                Files are uploaded through temporary access links, so sensitive data does not rely on long-lived
+                credentials or exposed buckets.
+              </span>
             </div>
             <div class="stat">
-              <span class="faint">Demo value</span>
-              <strong>Visible architecture and real interaction</strong>
-              <span class="muted">Prospects can understand the business flow in under two minutes and see a working
-                upload path.</span>
+              <span class="faint">What this shows</span>
+              <strong>Practical design decisions in action</strong>
+              <span class="muted">
+                A visitor can quickly see how the architecture works and why the chosen AWS pattern is appropriate for
+                secure file handling.
+              </span>
             </div>
           </div>
         </aside>
@@ -639,8 +645,6 @@
       <div class="container">
         <div class="section-head">
           <h2>Security controls</h2>
-          <p class="muted">The page is designed to help prospects see practical security thinking, not just AWS service
-            names. Each visible control maps to a real design choice you can explain during a client call.</p>
         </div>
         <div class="grid-3">
           <article class="card">
@@ -755,8 +759,6 @@
       <div class="container">
         <div class="section-head">
           <h2>Architecture</h2>
-          <p class="muted">This view keeps the whole story legible for non-engineering buyers while still showing enough
-            detail to signal real AWS delivery capability.</p>
         </div>
         <div class="architecture" role="img"
           aria-label="Architecture showing browser, CloudFront, API Gateway, Lambda, and secure upload bucket.">
@@ -789,8 +791,6 @@
       <div class="container">
         <div class="section-head">
           <h2>Terraform-ready structure</h2>
-          <p class="muted">This file layout is designed to be easy to publish in a repository and evolve into a real
-            reusable sample without overengineering the first version.</p>
         </div>
         <div class="terraform-box">
           <div class="file-tree">aws-secure-upload-demo/
@@ -858,18 +858,6 @@
         result.innerHTML = html;
       }
 
-      async function computeContentMd5(file) {
-        const buffer = await file.arrayBuffer();
-        const spark = new SparkMD5.ArrayBuffer();
-        spark.append(buffer);
-
-        const md5Hex = spark.end();
-        const md5Bytes = md5Hex.match(/.{1,2}/g).map(hex => parseInt(hex, 16));
-        const contentMd5 = btoa(String.fromCharCode(...md5Bytes));
-
-        return contentMd5;
-      }
-
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
@@ -890,8 +878,6 @@
 
         try {
 
-          const contentMd5 = await computeContentMd5(file);
-
           const presignResponse = await fetch(endpoint, {
             method: 'POST',
             headers: {
@@ -902,8 +888,7 @@
               contentType: file.type || 'application/octet-stream',
               clientId: client || 'public-demo',
               classification: classification,
-              notes: notes,
-              contentMd5: contentMd5
+              notes: notes
             })
           });
 
@@ -928,9 +913,6 @@
 
           const uploadResponse = await fetch(data.uploadUrl, {
             method: 'PUT',
-            headers: {
-              'Content-MD5': contentMd5
-            },
             body: file
           });
 

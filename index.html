@@ -1,9 +1,20 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A client-facing showcase of live AWS demos focused on secure design, governance, and operational readiness." />
+  <meta name="description"
+    content="A client-facing showcase of live AWS demos focused on secure design, governance, and operational readiness." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="styles.css">
   <title>Live AWS Demos | Secure Design in Practice</title>
   <style>
     :root {
@@ -12,29 +23,42 @@
       --panel-2: #13213a;
       --text: #eaf0ff;
       --muted: #aebbd6;
-      --line: rgba(255,255,255,0.10);
+      --line: rgba(255, 255, 255, 0.10);
       --accent: #6ea8fe;
       --accent-2: #2dd4bf;
-      --shadow: 0 18px 50px rgba(0,0,0,0.28);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
       --radius: 18px;
       --max: 1120px;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background:
-        radial-gradient(circle at top, rgba(110,168,254,0.18), transparent 28%),
-        radial-gradient(circle at 80% 0%, rgba(45,212,191,0.10), transparent 22%),
+        radial-gradient(circle at top, rgba(110, 168, 254, 0.18), transparent 28%),
+        radial-gradient(circle at 80% 0%, rgba(45, 212, 191, 0.10), transparent 22%),
         linear-gradient(180deg, #07111f, #0b1728);
       color: var(--text);
       line-height: 1.6;
     }
 
-    a { color: inherit; text-decoration: none; }
-    .wrap { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
 
     header {
       padding: 26px 0 16px;
@@ -73,13 +97,16 @@
       font-size: 0.95rem;
     }
 
-    .hero { padding: 76px 0 36px; }
+    .hero {
+      padding: 76px 0 36px;
+    }
+
     .eyebrow {
       display: inline-flex;
       padding: 8px 12px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255, 255, 255, 0.03);
       color: var(--muted);
       font-size: 0.92rem;
       margin-bottom: 18px;
@@ -118,13 +145,19 @@
       transition: transform .18s ease, background .18s ease;
     }
 
-    .btn:hover { transform: translateY(-1px); }
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
     .btn.primary {
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       color: #06111f;
       border-color: transparent;
     }
-    .btn.secondary { background: rgba(255,255,255,0.03); }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.03);
+    }
 
     .stats {
       display: grid;
@@ -133,25 +166,50 @@
       margin-top: 34px;
     }
 
-    .stat, .card, .panel, .cta {
-      background: rgba(255,255,255,0.03);
+    .stat,
+    .card,
+    .panel,
+    .cta {
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
 
-    .stat { padding: 18px; }
-    .stat strong { display: block; font-size: 1.15rem; margin-bottom: 4px; }
-    .stat span { color: var(--muted); font-size: 0.95rem; }
+    .stat {
+      padding: 18px;
+    }
 
-    section { padding: 32px 0; }
-    .section-head { margin-bottom: 18px; }
+    .stat strong {
+      display: block;
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    section {
+      padding: 32px 0;
+    }
+
+    .section-head {
+      margin-bottom: 18px;
+    }
+
     h2 {
       margin: 0;
       font-size: clamp(1.5rem, 2.4vw, 2.2rem);
       letter-spacing: -0.03em;
     }
-    .section-note { margin: 10px 0 0; color: var(--muted); max-width: 760px; }
+
+    .section-note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 760px;
+    }
 
     .cards {
       display: grid;
@@ -171,27 +229,36 @@
       width: fit-content;
       padding: 6px 10px;
       border-radius: 999px;
-      background: rgba(110,168,254,0.14);
-      border: 1px solid rgba(110,168,254,0.22);
+      background: rgba(110, 168, 254, 0.14);
+      border: 1px solid rgba(110, 168, 254, 0.22);
       color: #c8daff;
       font-size: 0.84rem;
       margin-bottom: 14px;
     }
 
-    .card h3 { margin: 0 0 10px; font-size: 1.2rem; }
-    .card p { margin: 0; color: var(--muted); }
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
 
     .card ul {
       list-style: none;
       padding: 0;
       margin: 16px 0 0;
     }
+
     .card li {
       margin-bottom: 8px;
       padding-left: 18px;
       position: relative;
       color: var(--muted);
     }
+
     .card li::before {
       content: "•";
       position: absolute;
@@ -199,7 +266,10 @@
       color: var(--accent-2);
     }
 
-    .spacer { flex: 1; }
+    .spacer {
+      flex: 1;
+    }
+
     .more {
       display: inline-flex;
       margin-top: 18px;
@@ -213,7 +283,10 @@
       gap: 18px;
     }
 
-    .panel, .cta { padding: 22px; }
+    .panel,
+    .cta {
+      padding: 22px;
+    }
 
     .checklist {
       list-style: none;
@@ -237,8 +310,16 @@
       font-weight: 700;
     }
 
-    .cta { text-align: center; background: linear-gradient(135deg, rgba(110,168,254,0.16), rgba(45,212,191,0.10)); }
-    .cta p { max-width: 760px; margin: 10px auto 0; color: var(--muted); }
+    .cta {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(110, 168, 254, 0.16), rgba(45, 212, 191, 0.10));
+    }
+
+    .cta p {
+      max-width: 760px;
+      margin: 10px auto 0;
+      color: var(--muted);
+    }
 
     footer {
       padding: 24px 0 40px;
@@ -247,21 +328,48 @@
     }
 
     @media (max-width: 920px) {
-      .stats, .cards, .trust { grid-template-columns: 1fr; }
-      .topbar { flex-direction: column; align-items: start; }
-      nav a { margin-left: 0; margin-right: 14px; }
-      h1 { max-width: 100%; }
+
+      .stats,
+      .cards,
+      .trust {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      nav a {
+        margin-left: 0;
+        margin-right: 14px;
+      }
+
+      h1 {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
+
 <body>
+  <noscript>
+    <div
+      style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(233, 7, 7, 0.7); color: white; padding: 20px; border-radius: 10px;">
+      <p><strong>JavaScript is disabled in your browser.</strong></p>
+      <p>Please enable JavaScript to view this page correctly.</p>
+    </div>
+  </noscript>
   <header>
     <div class="wrap topbar">
       <div class="brand">
-        <div class="logo">MC</div>
         <div>
-          Mousa Cloud Consulting
-          <div style="color: var(--muted); font-size: 0.92rem; font-weight: 500;">Secure AWS implementation showcase</div>
+          <a href="https://www.mousa-cloud.com">
+            <video autoplay muted>
+              <source src="resized-logo.mp4" type='video/mp4'>
+              Your browser does not support the video tag.
+            </video>
+          </a>
         </div>
       </div>
       <nav aria-label="Primary">
@@ -277,7 +385,8 @@
       <div class="eyebrow">Client-facing AWS demos built to prove real hands-on capability</div>
       <h1>See secure design choices turned into working AWS implementations.</h1>
       <p class="lead">
-        This page is for clients or prospects who want more than claims. Each demo shows a concrete architectural decision,
+        This page is for clients or prospects who want more than claims. Each demo shows a concrete architectural
+        decision,
         a practical security choice, and a real AWS implementation that can be reviewed live.
       </p>
       <div class="actions">
@@ -306,8 +415,10 @@
         <div class="section-head">
           <h2>Live AWS demos</h2>
           <p class="section-note">
-            The demos below are intentionally chosen to show how practical AWS architecture decisions solve real problems.
-            The first is already live; the other two are strong additions that reinforce secure design and operational maturity [web:24][web:27][web:30].
+            The demos below are intentionally chosen to show how practical AWS architecture decisions solve real
+            problems.
+            The first is already live; the other two are strong additions that reinforce secure design and operational
+            maturity.
           </p>
         </div>
 
@@ -319,29 +430,19 @@
               A live implementation of secure file intake using presigned URLs with S3, CloudFront, API Gateway,
               and Lambda. This shows how restricted access, controlled delivery, and serverless logic can work together.
             </p>
-            <ul>
-              <li>Demonstrates secure upload flow design.</li>
-              <li>Shows practical use of AWS-managed services.</li>
-              <li>Built to reflect real-world client needs.</li>
-            </ul>
             <div class="spacer"></div>
             <a class="more" href="secure-file-upload/">Open demo →</a>
           </article>
 
           <article class="card">
             <span class="badge">Planned demo 02</span>
-            <h3>Multi-account landing zone</h3>
+            <h3>AWS Well-Architected security review</h3>
             <p>
-              A secure AWS foundation showing how accounts, identity, logging, and guardrails are structured for
-              governance and separation of responsibilities in a serious environment [web:27][web:30][web:36].
+              A focused security review of a real AWS workload showing how identity, access control, logging, data
+              protection, and incident response decisions are evaluated using AWS Well-Architected guidance.
             </p>
-            <ul>
-              <li>Shows secure-by-default environment design.</li>
-              <li>Highlights architecture decisions that support scale.</li>
-              <li>Signals governance and compliance awareness.</li>
-            </ul>
             <div class="spacer"></div>
-            <a class="more" href="/demos/landing-zone/">View demo page →</a>
+            <a class="more">Coming soon</a>
           </article>
 
           <article class="card">
@@ -349,15 +450,10 @@
             <h3>Observability and incident response</h3>
             <p>
               A production-style monitoring demo using CloudWatch and X-Ray to show logs, metrics, traces, dashboards,
-              and incident investigation in a way that reflects operational readiness [web:25][web:29][web:34].
+              and incident investigation in a way that reflects operational readiness.
             </p>
-            <ul>
-              <li>Shows how issues are detected and investigated.</li>
-              <li>Demonstrates telemetry-driven operations.</li>
-              <li>Proves the ability to support live workloads.</li>
-            </ul>
             <div class="spacer"></div>
-            <a class="more" href="/demos/observability/">View demo page →</a>
+            <a class="more">Coming soon</a>
           </article>
         </div>
       </div>
@@ -368,7 +464,8 @@
         <div class="section-head">
           <h2>What this page tells you</h2>
           <p class="section-note">
-            The purpose of this hub is to make it easy to judge whether the implementation is real, secure, and professionally thought through.
+            The purpose of this hub is to make it easy to judge whether the implementation is real, secure, and
+            professionally thought through.
           </p>
         </div>
 
@@ -387,7 +484,8 @@
             <h3 style="margin-top:0;">Why the portfolio is structured this way</h3>
             <p style="color: var(--muted); margin-top: 0;">
               A client reviewing this page should be able to move from interest to proof quickly.
-              That is why each demo gets its own page, while this landing page remains a simple starting point for navigation.
+              That is why each demo gets its own page, while this landing page remains a simple starting point for
+              navigation.
             </p>
             <p style="color: var(--muted); margin-bottom: 0;">
               The page can later expand with more demos without losing the clarity of the current structure.
@@ -406,18 +504,51 @@
             these demos are the fastest way to evaluate the depth of the work.
           </p>
           <div class="actions" style="justify-content:center; margin-top:18px;">
-            <a class="btn primary" href="mailto:hello@mousa-cloud.com">Discuss a project</a>
-            <a class="btn secondary" href="/contact/">Contact page</a>
+            <a class="btn primary" href="https://calendly.com/contact-mousa-cloud-consulting/30min" target="_blank">Discuss a
+              project</a>
+            <a class="btn secondary" href="https://tally.so/r/7R2PPZ" target="_blank">Contact page</a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap">
-      © 2026 Mousa Cloud Consulting. Secure AWS implementation, architectural decisions, and practical delivery.
+  <div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;
+            padding:1rem;z-index:9999;display:none;font-size:0.9rem;">
+    <div style="max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;
+              gap:0.75rem;align-items:center;">
+      <p style="flex:1;margin:0;">
+        Essential fraud protection (TrafficGuard) runs by default to block bots and click fraud.
+        Non-essential analytics & ads (Google, TikTok & Reddit) only load if you consent below. See our
+        <a href="privacy-policy.html" style="color:#4ea3ff;">Privacy Policy</a>.
+      </p>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <button id="cookie-reject" style="background:#444;color:#fff;border:none;padding:0.5rem 1rem;
+                     border-radius:4px;cursor:pointer;">
+          Reject non‑essential
+        </button>
+        <button id="cookie-accept" style="background:#007bff;color:#fff;border:none;padding:0.5rem 1rem;
+                     border-radius:4px;cursor:pointer;">
+          Accept all
+        </button>
+      </div>
     </div>
-  </footer>
+  </div>
+
+  <script src="common.js"></script>
+
+  <script src="cookie-consent.js"></script>
+
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').outerHTML = data;
+      });
+  </script>
+
+
+  <div id="footer-placeholder"></div>
 </body>
+
 </html>
