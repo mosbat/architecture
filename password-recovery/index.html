@@ -5,6 +5,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create, Recover, or Delete Your Account Securely</title>
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../assets/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="../assets/android-chrome-512x512.png">
+    <link rel="shortcut icon" href="../assets/favicon.ico">
     <style>
         :root {
             --bg: #0f172a;
@@ -36,6 +49,7 @@
         .container {
             max-width: 980px;
             margin: 0 auto;
+            padding: 20px;
         }
 
         .hero {
@@ -264,10 +278,31 @@
                 padding: 18px;
             }
         }
+
+        .site-header .header-inner {
+            display: grid;
+            place-items: center;
+        }
     </style>
 </head>
 
 <body>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="brand">
+                <div>
+                    <a href="https://www.mousa-cloud.com">
+                        <video autoplay muted>
+                            <source src="../assets/resized-logo.mp4" type='video/mp4'>
+                            Your browser does not support the video tag.
+                        </video>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <div class="container">
         <div class="hero">
             <h1>Create, recover, or delete your account securely</h1>
@@ -656,7 +691,6 @@
             const email = emailInput.value.trim();
             const otp = otpInput.value.trim();
             const mode = modeInput.value;
-            const loginPassword = loginPasswordInput.value.trim();
 
             try {
                 if (mode === "create") {
@@ -726,10 +760,10 @@
                     clearIrrelevantFields(modeInput.value);
                 } else if (mode === "delete") {
                     const password = deleteUserPasswordInput.value;
-                    /*                     if (!password || password.length < 10) {
-                                            setMessage("error", "Password must be at least 10 characters long.");
-                                            return;
-                                        } */
+                    if (!password || password.length < 10) {
+                        setMessage("error", "Password must be at least 10 characters long.");
+                        return;
+                    }
 
                     const res = await fetch("https://liwwdqabb7.execute-api.us-east-1.amazonaws.com/Demo/users", {
                         method: "DELETE",
@@ -743,7 +777,15 @@
 
                     if (!res.ok) throw new Error("Request failed");
                     setMessage("success", "User deletion request submitted successfully.");
+                    clearIrrelevantFields(modeInput.value);
                 } else {
+
+                    const loginPassword = loginPasswordInput.value.trim();
+
+                    if (!loginPassword || loginPassword.length < 10) {
+                        setMessage("error", "Password must be at least 10 characters long.");
+                        return;
+                    }
 
                     const res = await fetch("https://liwwdqabb7.execute-api.us-east-1.amazonaws.com/Demo/auth/login", {
                         method: "POST",
@@ -766,6 +808,45 @@
 
         showMode("create");
     </script>
+
+
+    <div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;
+            padding:1rem;z-index:9999;display:none;font-size:0.9rem;">
+        <div style="max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;
+              gap:0.75rem;align-items:center;">
+            <p style="flex:1;margin:0;">
+                Essential fraud protection (TrafficGuard) runs by default to block bots and click fraud.
+                Non-essential analytics & ads (Google, TikTok & Reddit) only load if you consent below. See our
+                <a href="privacy-policy.html" style="color:#4ea3ff;">Privacy Policy</a>.
+            </p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <button id="cookie-reject" style="background:#444;color:#fff;border:none;padding:0.5rem 1rem;
+                     border-radius:4px;cursor:pointer;">
+                    Reject non‑essential
+                </button>
+                <button id="cookie-accept" style="background:#007bff;color:#fff;border:none;padding:0.5rem 1rem;
+                     border-radius:4px;cursor:pointer;">
+                    Accept all
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../js/common.js"></script>
+
+    <script src="../js/cookie-consent.js"></script>
+
+    <script>
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').outerHTML = data;
+            });
+    </script>
+
+
+    <div id="footer-placeholder"></div>
 </body>
 
 </html>
