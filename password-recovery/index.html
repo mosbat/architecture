@@ -809,6 +809,125 @@
         showMode("create");
     </script>
 
+    <section class="container" style="margin-top:24px;">
+        <div class="card" style="border-radius:18px;">
+            <div class="hero" style="margin-bottom:18px;">
+                <h2 style="margin:0 0 8px; font-size:1.7rem;">AWS Well-Architected Security Pillar alignment</h2>
+                <p style="margin:0; color:var(--muted); line-height:1.7;">
+                    This demo is a reference implementation designed to illustrate practical security choices in an AWS
+                    serverless architecture. It is intentionally simplified, but it maps directly to the AWS
+                    Well-Architected
+                    Security Pillar across identity, data protection, detection, infrastructure protection, incident
+                    response,
+                    and application security.
+                </p>
+            </div>
+
+            <div style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px;">
+                <div class="panel">
+                    <h3 class="section-title">Security foundations</h3>
+                    <p class="help">Each sensitive action follows a zero-trust mindset: requests are treated as
+                        untrusted by default, and the design aims to support least-privilege access with narrow request
+                        boundaries to reduce exposure of sensitive data.</p>
+                </div>
+                <div class="panel">
+                    <h3 class="section-title">Identity and access management</h3>
+                    <p class="help">OTP is used to verify email ownership and as an additional verification step
+                        alongside the password for sensitive actions such as login and deletion. Passwords are required
+                        for login, account creation, and deletion.</p>
+                </div>
+                <div class="panel">
+                    <h3 class="section-title">Detection</h3>
+                    <p class="help">Request IDs are logged to support traceability without exposing secrets, and the
+                        logging pattern can be extended to CloudWatch alerting for anomaly detection.</p>
+                </div>
+                <div class="panel">
+                    <h3 class="section-title">Infrastructure protection</h3>
+                    <p class="help">The architecture is fully serverless and uses strict API boundaries, along with
+                        restrictive CORS, to reduce unnecessary attack surface. The backend is stateless, with no
+                        application server persisting runtime state between invocations.</p>
+                </div>
+                <div class="panel">
+                    <h3 class="section-title">Data protection</h3>
+                    <p class="help">Secrets are hashed with one-way cryptographic functions before being stored in the
+                        database, reducing exposure if storage is accessed by authorized operators. Transport security
+                        is enforced with TLS 1.3+ to protect data in transit. Query parameters are URL-encoded for
+                        correctness, while confidentiality in transit is provided by TLS.</p>
+                </div>
+                <div class="panel">
+                    <h3 class="section-title">Incident response</h3>
+                    <p class="help">OTP expiry, clear failure states, and controlled delete flows support safe recovery
+                        and response.</p>
+                </div>
+                <div class="panel" style="grid-column:1 / -1;">
+                    <h3 class="section-title">Application security</h3>
+                    <p class="help">User input is validated on the client side before being sent to the API. Strict CORS
+                        helps limit which browser origins can call the API, but backend validation remains the primary
+                        security control.</p>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="grid" style="grid-template-columns:1fr 1fr; gap:14px;">
+                <div class="panel">
+                    <h3 class="section-title">Notes and considerations</h3>
+                    <p class="help">This is a demo, not a production service. It intentionally highlights both strengths
+                        and trade-offs, including client-side compromise, email-based OTP limitations, static secret
+                        questions, cloud-provider dependency, and jurisdictional data considerations.</p>
+                </div>
+                <div class="panel" style="margin-top:14px;">
+                    <h3 class="section-title">Content disclaimer</h3>
+                    <p class="help">This page was created through a human-led process, with AI used for polishing,
+                        wording refinement, and presentation assistance. The core product thinking, architecture
+                        decisions, security analysis, and overall design direction are human-authored.</p>
+                </div>
+
+                <div class="panel">
+                    <h3 class="section-title">What this demo does well</h3>
+                    <p class="help">It keeps the workflow simple to understand, shows security as a deliberate design
+                        choice, and demonstrates how AWS serverless services can support a secure, explainable identity
+                        flow.</p>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="panel">
+                <h3 class="section-title">Risk and trade-offs</h3>
+                <div class="grid" style="grid-template-columns:1fr; gap:12px;">
+                    <div class="secret-item">
+                        <strong>Client-side compromise</strong>
+                        <p class="help">Even with TLS 1.3+, secrets can still be exposed if the client device is
+                            compromised by malware, remote access tools, or keyloggers.</p>
+                    </div>
+                    <div class="secret-item">
+                        <strong>Email OTP limitations</strong>
+                        <p class="help">OTP via email is only effective if the attacker does not already control the
+                            victim’s email account or device session.</p>
+                    </div>
+                    <div class="secret-item">
+                        <strong>Static recovery questions</strong>
+                        <p class="help">Static secret questions can be vulnerable to social engineering. Requiring three
+                            correct answers reduces risk, but does not eliminate it.</p>
+                    </div>
+                    <div class="secret-item">
+                        <strong>Cloud provider dependency</strong>
+                        <p class="help">Using Lambda, DynamoDB, and API Gateway improves operational simplicity and
+                            elasticity, but introduces some cloud-provider lock-in compared with container-based
+                            portability.</p>
+                    </div>
+                    <div class="secret-item">
+                        <strong>Data jurisdiction</strong>
+                        <p class="help">The demo keeps data collection minimal and uses a consent-driven flow, but
+                            production deployments should still consider regional jurisdiction, retention, and
+                            compliance requirements.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;
             padding:1rem;z-index:9999;display:none;font-size:0.9rem;">
@@ -831,6 +950,9 @@
             </div>
         </div>
     </div>
+
+    <link rel="stylesheet" href="../css/demo-disclaimer.css">
+    <script defer src="../js/demo-disclaimer.js"></script>
 
 
     <script src="../js/common.js"></script>
