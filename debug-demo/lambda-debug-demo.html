@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lambda Debugging Demo | Observability and Traceability</title>
+  <meta name="description"
+    content="Explore a professional AWS Lambda observability demo with happy-path and error scenarios, request IDs, trace IDs, and debugging output for incident investigation.">
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/android-chrome-512x512.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --accent-2: #34d399;
+      --border: #374151;
+      --danger: #f87171;
+      --success: #4ade80;
+      --warning: #fbbf24
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 32px 16px
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 20px
+    }
+
+    .hero {
+      margin-bottom: 24px
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 2rem
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 900px
+    }
+
+    .card {
+      background: rgba(17, 24, 39, .94);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+      backdrop-filter: blur(8px)
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px
+    }
+
+    .grid-1 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px
+    }
+
+    .full {
+      grid-column: 1/-1
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600
+    }
+
+    input,
+    button,
+    textarea,
+    select {
+      font: inherit
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      background: #0b1220;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      outline: none
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, .16)
+    }
+
+    .help {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.5
+    }
+
+    .panel {
+      background: rgba(31, 41, 55, .55);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 1.1rem
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      cursor: pointer
+    }
+
+    .primary {
+      background: var(--accent);
+      color: #08111f;
+      font-weight: 700
+    }
+
+    .secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-weight: 600
+    }
+
+    .ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border)
+    }
+
+    .message {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      display: none;
+      white-space: pre-wrap;
+      line-height: 1.55
+    }
+
+    .message.success {
+      display: block;
+      background: rgba(74, 222, 128, .12);
+      border: 1px solid rgba(74, 222, 128, .3);
+      color: var(--success)
+    }
+
+    .message.error {
+      display: block;
+      background: rgba(248, 113, 113, .12);
+      border: 1px solid rgba(248, 113, 113, .3);
+      color: var(--danger)
+    }
+
+    .message.info {
+      display: block;
+      background: rgba(96, 165, 250, .12);
+      border: 1px solid rgba(96, 165, 250, .3);
+      color: #93c5fd
+    }
+
+    .response {
+      background: #0b1220;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      min-height: 220px
+    }
+
+    .response pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.55;
+      font-size: .95rem
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 700
+    }
+
+    .ok {
+      background: rgba(74, 222, 128, .14);
+      color: var(--success)
+    }
+
+    .err {
+      background: rgba(248, 113, 113, .14);
+      color: var(--danger)
+    }
+
+    .neutral {
+      background: rgba(96, 165, 250, .14);
+      color: #93c5fd
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center
+    }
+
+    .kv {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 10px 14px
+    }
+
+    .kv div:nth-child(odd) {
+      color: var(--muted)
+    }
+
+    .small {
+      font-size: .9rem;
+      color: var(--muted)
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 18px 0
+    }
+
+    .examples {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .examples button {
+      padding: 9px 12px;
+      border-radius: 999px
+    }
+
+    code {
+      color: #c7d2fe
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+    }
+
+    @media(max-width:860px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .demo-note,
+    .demo-note-footer {
+      color: #9ca3af;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="demoDisclaimerRoot"></div>
+  <div class="container">
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div>
+            <a href="https://www.mousa-cloud.com">
+              <video autoplay muted>
+                <source src="../assets/resized-logo.mp4" type='video/mp4'>
+                Your browser does not support the video tag.
+              </video>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <div class="hero">
+      <h1>Lambda debugging and traceability demo</h1>
+      <p>This demo shows a happy path and two negative paths against a Java AWS Lambda behind API Gateway. It is
+        designed to make request IDs, trace IDs, validation errors, and stack traces easy to inspect so prospects can
+        see how debugging and incident investigation work in practice.</p>
+    </div>
+
+    <p class="demo-note">
+      This demo was designed and built through a human-led process, with AI used to assist with wording, presentation
+      polish, and code refinement.
+    </p>
+
+    <div class="card">
+      <div class="grid">
+        <div class="grid-1">
+          <div class="panel">
+            <h2 class="section-title">Run the demo</h2>
+            <label for="userInput">Input value</label>
+            <input id="userInput" type="text" inputmode="numeric"
+              placeholder="Try 12, 13, 0, or an invalid value like abc">
+            <div class="help">The Lambda accepts a single query parameter named <code>userInput</code>. Use <span
+                class="mono">13</span> to force an internal error, a non-number to trigger a validation error, or a
+              normal number for the success path.</div>
+
+            <div class="examples" style="margin-top:14px;">
+              <button class="ghost" type="button" data-example="12">Happy path: 12</button>
+              <button class="ghost" type="button" data-example="13">Forced error: 13</button>
+              <button class="ghost" type="button" data-example="abc">Bad input: abc</button>
+              <button class="ghost" type="button" data-example="1000001">Out of range</button>
+            </div>
+
+            <div class="actions">
+              <button class="primary" id="runBtn" type="button">Run Lambda</button>
+              <button class="secondary" id="clearBtn" type="button">Clear output</button>
+            </div>
+            <div class="help">Endpoint:
+              <code>https://ymakbkchng.execute-api.us-east-1.amazonaws.com/Demo/process?userInput=VALUE</code>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2 class="section-title">What this demonstrates</h2>
+            <div class="kv small">
+              <div>Happy path</div>
+              <div>200 response with message, processed input, request ID, and trace ID.</div>
+              <div>Validation error</div>
+              <div>400 response when input is missing, empty, invalid, or out of range.</div>
+              <div>Forced failure</div>
+              <div>500 response when input equals 13 and the function throws an internal exception.</div>
+              <div>Traceability</div>
+              <div>Every response includes requestId and traceId for CloudWatch and X-Ray correlation.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-1">
+          <div class="panel">
+            <div class="row" style="justify-content:space-between;margin-bottom:10px;">
+              <h2 class="section-title" style="margin:0;">Last response</h2>
+              <span id="statusBadge" class="badge neutral">Waiting</span>
+            </div>
+            <div class="response">
+              <pre id="responseOutput">Run the demo to see the API response here.</pre>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2 class="section-title">Debug notes</h2>
+            <div class="small" id="debugNotes">The response pane will show the raw JSON returned by Lambda. For
+              failures, the page highlights the message, error type, request ID, and trace ID so it is easy to map the
+              browser action back to CloudWatch logs and X-Ray traces.</div>
+            <div class="divider"></div>
+            <div class="small">Suggested talking point: the lambda intentionally logs the same payload structure it
+              returns, making it easy to correlate user actions, API responses, log events, and trace data.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const endpoint = 'https://ymakbkchng.execute-api.us-east-1.amazonaws.com/Demo/process?userInput=';
+      const input = document.getElementById('userInput');
+      const runBtn = document.getElementById('runBtn');
+      const clearBtn = document.getElementById('clearBtn');
+      const output = document.getElementById('responseOutput');
+      const badge = document.getElementById('statusBadge');
+      const notes = document.getElementById('debugNotes');
+      const exampleButtons = document.querySelectorAll('[data-example]');
+
+      function setBadge(type, text) {
+        badge.className = 'badge ' + (type === 'ok' ? 'ok' : type === 'err' ? 'err' : 'neutral');
+        badge.textContent = text;
+      }
+
+      function showJson(obj) {
+        output.textContent = JSON.stringify(obj, null, 2);
+      }
+
+      function clearState() {
+        output.textContent = 'Run the demo to see the API response here.';
+        setBadge('neutral', 'Waiting');
+        notes.textContent = 'The response pane will show the raw JSON returned by Lambda. For failures, the page highlights the message, error type, request ID, and trace ID so it is easy to map the browser action back to CloudWatch logs and X-Ray traces.';
+      }
+
+      async function run() {
+        const raw = input.value.trim();
+        if (!raw) {
+          setBadge('err', 'Input required');
+          output.textContent = 'Please enter a value such as 12, 13, or abc.';
+          return;
+        }
+        setBadge('neutral', 'Running');
+        output.textContent = 'Calling Lambda...';
+        notes.textContent = 'Sending request to the API Gateway endpoint with the selected input. The returned JSON is rendered below together with its request and trace identifiers.';
+        try {
+          const url = endpoint + raw;
+          const res = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
+          const text = await res.text();
+          let data;
+          try { data = JSON.parse(text); } catch (e) { data = { rawResponse: text }; }
+          showJson(data);
+          if (res.ok) {
+            setBadge('ok', 'HTTP ' + res.status + ' Success');
+            notes.textContent = 'The happy path confirms the function processed the input successfully. You can point to the requestId and traceId values as the bridge between the browser, CloudWatch logs, and X-Ray.';
+          } else if (res.status === 400) {
+            setBadge('err', 'HTTP 400 Validation');
+            notes.textContent = 'This is the user-facing validation path. It is useful to show how bad input is rejected cleanly before any business logic is executed.';
+          } else {
+            setBadge('err', 'HTTP ' + res.status + ' Error');
+            notes.textContent = 'This is the failure path. The payload should include errorType, errorMessage, requestId, traceId, and stackTrace so viewers can see how the issue would be debugged.';
+          }
+        } catch (err) {
+          setBadge('err', 'Network error');
+          output.textContent = JSON.stringify({ message: 'Failed to call the demo endpoint', error: String(err) }, null, 2);
+          notes.textContent = 'If the request cannot reach the API, the likely cause is endpoint availability, browser networking, CORS, or a deployment issue.';
+        }
+      }
+
+      runBtn.addEventListener('click', run);
+      clearBtn.addEventListener('click', clearState);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') run(); });
+      exampleButtons.forEach(btn => btn.addEventListener('click', () => { input.value = btn.dataset.example; run(); }));
+      clearState();
+    })();
+  </script>
+
+
+  <div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;
+            padding:1rem;z-index:9999;display:none;font-size:0.9rem;">
+    <div style="max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;
+              gap:0.75rem;align-items:center;">
+      <p style="flex:1;margin:0;">
+        Essential fraud protection (TrafficGuard) runs by default to block bots and click fraud.
+        Non-essential analytics & ads (Google, TikTok & Reddit) only load if you consent below. See our
+        <a href="privacy-policy.html" style="color:#4ea3ff;">Privacy Policy</a>.
+      </p>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <button id="cookie-reject" style="background:#444;color:#fff;border:none;padding:0.5rem 1rem;
+                     border-radius:4px;cursor:pointer;">
+          Reject non‑essential
+        </button>
+        <button id="cookie-accept" style="background:#007bff;color:#fff;border:none;padding:0.5rem 1rem;
+                     border-radius:4px;cursor:pointer;">
+          Accept all
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <link rel="stylesheet" href="../css/demo-disclaimer.css">
+  <script defer src="../js/demo-disclaimer.js"></script>
+
+
+  <script src="../js/common.js"></script>
+
+  <script src="../js/cookie-consent.js"></script>
+
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').outerHTML = data;
+      });
+  </script>
+
+
+  <div id="footer-placeholder"></div>
+</body>
+
+</html>
