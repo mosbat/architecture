@@ -292,6 +292,33 @@
             opacity: 1;
             -webkit-text-fill-color: #e5e7eb;
         }
+
+        .password-wrap {
+            position: relative;
+        }
+
+        .password-wrap input {
+            padding-right: 48px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            padding: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .password-toggle:hover {
+            color: var(--text);
+        }
     </style>
 </head>
 
@@ -382,6 +409,9 @@
                                     <label for="password">Password</label>
                                     <input id="password" name="password" type="password" minlength="10"
                                         placeholder="At least 10 characters" />
+                                    <label for="passwordConfirm">Confirm Password</label>
+                                    <input id="passwordConfirm" name="passwordConfirm" type="password" minlength="10"
+                                        placeholder="At least 10 characters" />
                                     <div class="help">Your password will be hashed before storage.</div>
                                 </div>
                             </div>
@@ -398,6 +428,9 @@
                                     <label for="newPassword">New password</label>
                                     <input id="newPassword" name="newPassword" type="password" minlength="10"
                                         placeholder="At least 10 characters" />
+                                    <label for="newPasswordConfirm">Confirm New password</label>
+                                    <input id="newPasswordConfirm" name="newPasswordConfirm" type="password"
+                                        minlength="10" placeholder="At least 10 characters" />
                                     <div class="help">Choose a new password for your recovered account.</div>
                                 </div>
                             </div>
@@ -463,8 +496,10 @@
         const emailInput = document.getElementById("email");
         const otpInput = document.getElementById("otp");
         const passwordInput = document.getElementById("password");
+        const confirmPasswordInput = document.getElementById("passwordConfirm")
         const loginPasswordInput = document.getElementById("loginPassword")
         const newPasswordInput = document.getElementById("newPassword");
+        const confirmNewPasswordInput = document.getElementById("newPasswordConfirm")
         const deleteUserPasswordInput = document.getElementById("deleteUserPassword")
 
         const createFields = document.getElementById("createFields");
@@ -704,8 +739,17 @@
             try {
                 if (mode === "create") {
                     const password = passwordInput.value;
+
+                    const confirmPassword = confirmPasswordInput.value;
+
                     if (!password || password.length < 10) {
                         setMessage("error", "Password must be at least 10 characters long.");
+                        return;
+                    }
+
+
+                    if (password !== confirmPassword) {
+                        setMessage("error", "Passwords are not identical. Double check the password fields. Both passwords must be the same.");
                         return;
                     }
 
@@ -732,12 +776,21 @@
                     });
 
                     if (!res.ok) throw new Error("Request Failed");
-                    setMessage("success", "Account creation request submitted successfully.");
+                    setMessage("success", "Account creation request submitted successfully. (OTP had been invalidated and cannot be reused)");
+                    clearAllForms();
                     clearIrrelevantFields(modeInput.value);
                 } else if (mode === "recover") {
                     const newPassword = newPasswordInput.value;
+
+                    const newPasswordConfirm = confirmNewPasswordInput.value;
+
                     if (!newPassword || newPassword.length < 10) {
                         setMessage("error", "New password must be at least 10 characters long.");
+                        return;
+                    }
+
+                    if (newPassword !== newPasswordConfirm) {
+                        setMessage("error", "Passwords are not identical. Double check the password fields. Both passwords must be the same.");
                         return;
                     }
 
@@ -765,7 +818,8 @@
                     });
 
                     if (!res.ok) throw new Error("Request failed");
-                    setMessage("success", "Password recovery request submitted successfully.");
+                    setMessage("success", "Password recovery request submitted successfully. (OTP had been invalidated and cannot be reused)");
+                    clearAllForms();
                     clearIrrelevantFields(modeInput.value);
                 } else if (mode === "delete") {
                     const password = deleteUserPasswordInput.value;
@@ -786,6 +840,7 @@
 
                     if (!res.ok) throw new Error("Request failed");
                     setMessage("success", "User deletion request submitted successfully.");
+                    clearAllForms();
                     clearIrrelevantFields(modeInput.value);
                 } else {
 
@@ -814,6 +869,27 @@
                 setMessage("error", err.message || "Request failed.");
             }
         });
+
+        function clearAllForms() {
+            document.querySelectorAll('form').forEach(form => form.reset());
+
+            document.querySelectorAll('input, textarea, select').forEach(field => {
+                if (field.type === 'checkbox' || field.type === 'radio') {
+                    field.checked = false;
+                } else {
+                    field.value = '';
+                    if (field.type === 'password') field.type = 'password';
+                }
+            });
+
+            document.querySelectorAll('.password-toggle i').forEach(icon => {
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            });
+
+            clearMessage();
+        }
+
 
         showMode("create");
     </script>
@@ -963,6 +1039,8 @@
     <link rel="stylesheet" href="../css/demo-disclaimer.css">
     <script defer src="../js/demo-disclaimer.js"></script>
 
+
+    <script src="js/helpers.js"></script>
 
     <script src="../js/common.js"></script>
 

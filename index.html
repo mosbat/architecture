@@ -347,6 +347,78 @@
         max-width: 100%;
       }
     }
+
+    #demos {
+      padding: 56px 0;
+      background:
+        radial-gradient(circle at top, rgba(110, 168, 254, 0.10), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+    }
+
+    #demos .section-head {
+      margin-bottom: 22px;
+    }
+
+    #demos .section-head h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+    }
+
+    #demos .section-note {
+      font-size: 1.02rem;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .demo-grid .card {
+      min-height: 100%;
+      padding: 26px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(110, 168, 254, 0.22);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .demo-grid .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(110, 168, 254, 0.36);
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.30);
+    }
+
+    .demo-grid .card h3 {
+      font-size: 1.25rem;
+    }
+
+    .demo-grid .card p {
+      font-size: 0.98rem;
+    }
+
+    .demo-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 22px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #06111f;
+      font-weight: 700;
+      box-shadow: 0 10px 24px rgba(45, 212, 191, 0.18);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .demo-action:hover {
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 920px) {
+      .demo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -419,8 +491,8 @@
           </p>
         </div>
 
-        <div class="cards">
-          <article class="card">
+        <div class="demo-grid">
+          <article class="card featured-demo">
             <span class="badge">Live demo 01</span>
             <h3>Secure file upload portal</h3>
             <p>
@@ -428,10 +500,10 @@
               and Lambda. This shows how restricted access, controlled delivery, and serverless logic can work together.
             </p>
             <div class="spacer"></div>
-            <a class="more" href="secure-file-upload/" target="_blank">Open demo →</a>
+            <a class="demo-action" href="secure-file-upload/" target="_blank">Open demo →</a>
           </article>
 
-          <article class="card">
+          <article class="card featured-demo">
             <span class="badge">Live demo 02</span>
             <h3>AWS Well-Architected security review</h3>
             <p>
@@ -441,10 +513,10 @@
               Pillar.
             </p>
             <div class="spacer"></div>
-            <a class="more" href="password-recovery/" target="_blank">Open demo →</a>
+            <a class="demo-action" href="password-recovery/" target="_blank">Open demo →</a>
           </article>
 
-          <article class="card">
+          <article class="card featured-demo">
             <span class="badge">Live demo 03</span>
             <h3>Observability and incident response</h3>
             <p>
@@ -452,7 +524,7 @@
               and incident investigation in a way that reflects operational readiness.
             </p>
             <div class="spacer"></div>
-            <a class="more" href="debug-demo/" target="_blank">Open demo →</a>
+            <a class="demo-action" href="debug-demo/" target="_blank">Open demo →</a>
           </article>
         </div>
       </div>
@@ -463,8 +535,8 @@
         <div class="section-head">
           <h2>What this page tells you</h2>
           <p class="section-note">
-            The purpose of this hub is to make it easy to judge whether the implementation is real, secure, and
-            professionally thought through.
+            Start here: this live section shows secure AWS implementations in action, with one featured demo and two
+            supporting examples.
           </p>
         </div>
 
