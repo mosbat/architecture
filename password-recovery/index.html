@@ -451,7 +451,7 @@
 
                             <div class="divider"></div>
 
-                            <h3 class="section-title">Answer at least 3 secret questions</h3>
+                            <h3 class="section-title">Answer at least 3 secret questions.</h3>
                             <div id="recoveryQuestionsContainer"></div>
                         </div>
 
@@ -742,15 +742,21 @@
             emailStep.classList.remove("hidden");
             setStep(0);
             clearMessage();
+            clearAllForms();
             clearIrrelevantFields(modeInput.value);
         });
 
         backToOtpBtn.addEventListener("click", () => {
             finalStep.classList.add("hidden");
-            otpStep.classList.remove("hidden");
-            setStep(1);
+            otpStep.classList.add("hidden");
+            emailStep.classList.remove("hidden");
+            setStep(0);
             clearMessage();
+            otpVerified = false;
+            otpRequested = false;
+            otpInput.value = "";
             clearIrrelevantFields(modeInput.value);
+            clearAllForms();
         });
 
         document.getElementById("accountForm").addEventListener("submit", async (e) => {
