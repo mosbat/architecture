@@ -632,6 +632,21 @@
             });
         }
 
+        function loadingButtonState() {
+
+            const submitButton = document.getElementById("submitBtn");
+
+            let originalLabel = submitButton.innerHTML;
+
+            submitButton.disabled = true;
+
+            submitButton.innerHTML = `<span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Submitting...`;
+
+            const form = document.getElementById("accountForm");
+
+            form.setAttribute("aria-busy", "true");
+        }
+
         buildSecretQuestions(secretQuestionsContainer, createQuestionPrompts, "createAnswer");
         buildSecretQuestions(recoveryQuestionsContainer, recoveryQuestionPrompts, "recoverAnswer");
 
@@ -750,6 +765,10 @@
             const otp = otpInput.value.trim();
             const mode = modeInput.value;
 
+            const submitButton = document.getElementById("submitBtn");
+
+            let originalLabel = submitButton.innerHTML;
+
             try {
                 if (mode === "create") {
                     const password = passwordInput.value;
@@ -777,6 +796,8 @@
                         setMessage("error", "Please answer all secret questions.");
                         return;
                     }
+
+                    loadingButtonState();
 
                     const res = await fetch("https://liwwdqabb7.execute-api.us-east-1.amazonaws.com/Demo/users", {
                         method: "POST",
@@ -820,6 +841,8 @@
                         return;
                     }
 
+                    loadingButtonState();
+
                     const res = await fetch("https://liwwdqabb7.execute-api.us-east-1.amazonaws.com/Demo/password/reset", {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
@@ -841,6 +864,8 @@
                         setMessage("error", "Password must be at least 10 characters long...");
                         return;
                     }
+
+                    loadingButtonState();
 
                     const res = await fetch("https://liwwdqabb7.execute-api.us-east-1.amazonaws.com/Demo/users", {
                         method: "DELETE",
@@ -865,6 +890,8 @@
                         return;
                     }
 
+                    loadingButtonState();
+
                     const res = await fetch("https://liwwdqabb7.execute-api.us-east-1.amazonaws.com/Demo/auth/login", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -882,6 +909,10 @@
                 }
             } catch (err) {
                 setMessage("error", err.message || "Request failed.");
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalLabel;
+                document.getElementById("accountForm").setAttribute("aria-busy", "false");
             }
         });
 
