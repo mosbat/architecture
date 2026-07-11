@@ -877,6 +877,7 @@
 
                     if (!res.ok) throw new Error("Request failed");
                     setMessage("success", "User email and password are valid");
+                    clearAllForms();
 
                 }
             } catch (err) {
@@ -901,7 +902,6 @@
                 icon.classList.add('fa-eye');
             });
 
-            clearMessage();
         }
 
 
