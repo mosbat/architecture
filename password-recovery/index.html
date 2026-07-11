@@ -298,12 +298,13 @@
         }
 
         .password-wrap input {
+            width: 100%;
             padding-right: 48px;
         }
 
         .password-toggle {
             position: absolute;
-            right: 10px;
+            right: 12px;
             top: 50%;
             transform: translateY(-50%);
             border: none;
@@ -314,6 +315,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            z-index: 2;
         }
 
         .password-toggle:hover {
@@ -407,8 +409,14 @@
                             <div class="grid">
                                 <div class="full">
                                     <label for="password">Password</label>
-                                    <input id="password" name="password" type="password" minlength="10"
-                                        placeholder="At least 10 characters" />
+                                    <div class="password-wrap">
+                                        <input id="password" type="password" minlength="10"
+                                            placeholder="At least 10 characters" />
+                                        <button type="button" class="password-toggle" data-target="password"
+                                            aria-label="Show password">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </div>
                                     <label for="passwordConfirm">Confirm Password</label>
                                     <input id="passwordConfirm" name="passwordConfirm" type="password" minlength="10"
                                         placeholder="At least 10 characters" />
@@ -426,9 +434,15 @@
                             <div class="grid">
                                 <div class="full">
                                     <label for="newPassword">New password</label>
-                                    <input id="newPassword" name="newPassword" type="password" minlength="10"
-                                        placeholder="At least 10 characters" />
-                                    <label for="newPasswordConfirm">Confirm New password</label>
+                                    <div class="password-wrap">
+                                        <input id="newPassword" type="password" minlength="10"
+                                            placeholder="At least 10 characters" />
+                                        <button type="button" class="password-toggle" data-target="newPassword"
+                                            aria-label="Show password">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <label for="newPasswordConfirm">Confirm new password</label>
                                     <input id="newPasswordConfirm" name="newPasswordConfirm" type="password"
                                         minlength="10" placeholder="At least 10 characters" />
                                     <div class="help">Choose a new password for your recovered account.</div>
