@@ -28,6 +28,13 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Secure API Integration Demo -->
+  <url>
+    <loc>https://architecture.mousa-cloud.com/secure-api-integration/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <!-- Privacy Policy -->
   <url>
     <loc>https://architecture.mousa-cloud.com/privacy-policy.html</loc>
