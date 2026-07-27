@@ -2,24 +2,40 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lambda Debugging Demo | Observability and Traceability</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Error Handling Demo | AWS Lambda and API Gateway</title>
   <meta name="description"
-    content="Explore a professional AWS Lambda observability demo with happy-path and error scenarios, request IDs, trace IDs, and debugging output for incident investigation.">
+    content="Explore a live API demo showing success, validation errors, and internal errors behind Java AWS Lambda and API Gateway, with request IDs, trace IDs, and stack traces for debugging and incident investigation." />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="canonical" href="https://architecture.mousa-cloud.com/secure-api-integration/" />
+
   <meta property="og:type" content="website" />
+  <meta property="og:title" content="API Error Handling Demo | AWS Lambda and API Gateway" />
+  <meta property="og:description"
+    content="Explore a live API demo showing success, validation errors, and internal errors behind Java AWS Lambda and API Gateway, with request IDs, trace IDs, and stack traces for debugging and incident investigation." />
+  <meta property="og:url" content="https://architecture.mousa-cloud.com/secure-api-integration/" />
+  <meta property="og:image" content="https://architecture.mousa-cloud.com/assets/og/debug-demo.webp" />
+  <meta property="og:site_name" content="Mousa Cloud Consulting Ltd" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="API Error Handling Demo | AWS Lambda and API Gateway" />
+  <meta name="twitter:description"
+    content="Explore a live API demo showing success, validation errors, and internal errors behind Java AWS Lambda and API Gateway, with request IDs, trace IDs, and stack traces for debugging and incident investigation." />
+  <meta name="twitter:image" content="https://architecture.mousa-cloud.com/assets/og/debug-demo.webp" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="../assets/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="../assets/android-chrome-512x512.png">
-  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/android-chrome-192x192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/android-chrome-512x512.png" />
+  <link rel="shortcut icon" href="../assets/favicon.ico" />
   <style>
     :root {
       --bg: #0f172a;

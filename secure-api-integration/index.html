@@ -4,11 +4,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>api-security-demo</title>
+  <title>API Security Demo | Secure AWS Integration</title>
+  <meta name="description"
+    content="Explore a live API security demo showing secure request handling, controlled access, and AWS serverless integration in practice." />
   <meta name="color-scheme" content="light dark" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://architecture.mousa-cloud.com/secure-api-integration/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="API Security Demo | Secure AWS Integration" />
+  <meta property="og:description"
+    content="Explore a live API security demo showing secure request handling, controlled access, and AWS serverless integration in practice." />
+  <meta property="og:url" content="https://architecture.mousa-cloud.com/secure-api-integration/" />
+  <meta property="og:image" content="https://architecture.mousa-cloud.com/assets/og/api-security-demo.webp" />
+  <meta property="og:site_name" content="Mousa Cloud Consulting Ltd" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="API Security Demo | Secure AWS Integration" />
+  <meta name="twitter:description"
+    content="Explore a live API security demo showing secure request handling, controlled access, and AWS serverless integration in practice." />
+  <meta name="twitter:image" content="https://architecture.mousa-cloud.com/assets/og/api-security-demo.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/android-chrome-192x192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/android-chrome-512x512.png" />
+  <link rel="shortcut icon" href="../assets/favicon.ico" />
+
   <style>
     :root,
     [data-theme="light"] {
@@ -550,6 +578,20 @@
     <section class="hero">
       <span class="eyebrow">Live interactive security demo</span>
       <div class="hero-grid">
+        <header class="site-header">
+          <div class="container header-inner">
+            <div class="brand">
+              <div>
+                <a href="https://www.mousa-cloud.com">
+                  <video autoplay muted>
+                    <source src="../assets/resized-logo.mp4" type='video/mp4'>
+                    Your browser does not support the video tag.
+                  </video>
+                </a>
+              </div>
+            </div>
+          </div>
+        </header>
         <div>
           <h2>See four real API failure modes with one click.</h2>
           <p>This page demonstrates a happy path, token expiry, wrong audience, and browser-side schema validation using
@@ -1127,6 +1169,45 @@
     setDetails('Use the scenario buttons to begin.');
     log('Demo ready. Choose a scenario to see the request flow.');
   </script>
+
+  <div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;
+            padding:1rem;z-index:9999;display:none;font-size:0.9rem;">
+    <div style="max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;
+              gap:0.75rem;align-items:center;">
+      <p style="flex:1;margin:0;">
+        Non-essential analytics & ads (Google & Reddit) only load if you consent below. See our
+        <a href="privacy-policy.html" style="color:#4ea3ff;">Privacy Policy</a>.
+      </p>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <button id="cookie-reject" style="background:#444;color:#fff;border:none;padding:0.5rem 1rem;
+                     border-radius:4px;cursor:pointer;">
+          Reject non‑essential
+        </button>
+        <button id="cookie-accept" style="background:#007bff;color:#fff;border:none;padding:0.5rem 1rem;
+                     border-radius:4px;cursor:pointer;">
+          Accept all
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/common.js"></script>
+
+  <script src="../js/cookie-consent.js"></script>
+
+  <link rel="stylesheet" href="../css/demo-disclaimer.css">
+  <script defer src="../js/demo-disclaimer.js"></script>
+
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').outerHTML = data;
+      });
+  </script>
+
+
+  <div id="footer-placeholder"></div>
 </body>
 
 </html>

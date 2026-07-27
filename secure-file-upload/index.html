@@ -4,25 +4,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secure AWS Upload Portal Demo</title>
+  <title>Temporary Upload Authorization | Presigned S3 Demo</title>
   <meta name="description"
-    content="Client-facing demo for a secure AWS upload portal using S3, API Gateway, Lambda, and presigned uploads." />
-  <meta property="og:title" content="Secure AWS Upload Portal Demo" />
-  <meta property="og:description"
-    content="A polished static demo showing secure document intake on AWS with live presigned uploads." />
+    content="Explore a live demo showing browser-based file uploads to a private S3 bucket using short-lived presigned URLs from API Gateway and Lambda." />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="canonical" href="https://architecture.mousa-cloud.com/temporary-upload-authorization/" />
+
   <meta property="og:type" content="website" />
+  <meta property="og:title" content="Temporary Upload Authorization | Presigned S3 Demo" />
+  <meta property="og:description"
+    content="Explore a live demo showing browser-based file uploads to a private S3 bucket using short-lived presigned URLs from API Gateway and Lambda." />
+  <meta property="og:url" content="https://architecture.mousa-cloud.com/temporary-upload-authorization/" />
+  <meta property="og:image"
+    content="https://architecture.mousa-cloud.com/assets/og/secure-upload.webp" />
+  <meta property="og:site_name" content="Mousa Cloud Consulting Ltd" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Temporary Upload Authorization | Presigned S3 Demo" />
+  <meta name="twitter:description"
+    content="Explore a live demo showing browser-based file uploads to a private S3 bucket using short-lived presigned URLs from API Gateway and Lambda." />
+  <meta name="twitter:image"
+    content="https://architecture.mousa-cloud.com/assets/og/secure-upload.webp" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="../assets/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="../assets/android-chrome-512x512.png">
-  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/android-chrome-192x192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/android-chrome-512x512.png" />
+  <link rel="shortcut icon" href="../assets/favicon.ico" />
   <style>
     :root,
     [data-theme="light"] {
