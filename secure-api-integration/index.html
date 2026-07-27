@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>api-security-demo</title>
+  <meta name="color-scheme" content="light dark" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root,
+    [data-theme="light"] {
+      --bg: #f7f6f2;
+      --surface: #fbfbf9;
+      --surface-2: #f3f0ec;
+      --surface-3: #ebe7e2;
+      --text: #28251d;
+      --muted: #6f6c66;
+      --faint: #9e9b94;
+      --border: rgba(40, 37, 29, .12);
+      --primary: #01696f;
+      --primary-2: #0c4e54;
+      --success: #2f6d1d;
+      --warn: #964219;
+      --danger: #a13544;
+      --shadow: 0 12px 32px rgba(32, 28, 22, .08);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --space-1: .25rem;
+      --space-2: .5rem;
+      --space-3: .75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+    }
+
+    [data-theme="dark"] {
+      --bg: #171614;
+      --surface: #1e1c1a;
+      --surface-2: #23211f;
+      --surface-3: #2b2927;
+      --text: #ece7df;
+      --muted: #b2ada6;
+      --faint: #8b877f;
+      --border: rgba(255, 255, 255, .11);
+      --primary: #59aab1;
+      --primary-2: #7bc5cb;
+      --success: #7fc45f;
+      --warn: #d58b58;
+      --danger: #ef8e9b;
+      --shadow: 0 16px 40px rgba(0, 0, 0, .28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      background: linear-gradient(180deg, var(--bg), var(--surface-2));
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .app {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: var(--space-4);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-4) 0 var(--space-6);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      min-width: 0;
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      box-shadow: var(--shadow);
+      flex: 0 0 auto;
+    }
+
+    .brand h1 {
+      font-size: clamp(1.15rem, 1rem + .9vw, 1.6rem);
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .brand p {
+      margin: .2rem 0 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .theme-toggle {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 999px;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 .9rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      display: grid;
+      gap: var(--space-4);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 84%, transparent), var(--surface));
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) + 6px);
+      padding: var(--space-6);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      width: fit-content;
+      padding: .4rem .75rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+      color: var(--primary);
+      font-weight: 700;
+      font-size: .78rem;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      margin: 0;
+      font-size: clamp(1.7rem, 1.2rem + 2vw, 3.4rem);
+      line-height: 1.03;
+      max-width: 12ch;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 66ch;
+      color: var(--muted);
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .stat {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-4);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: .25rem;
+    }
+
+    .layout {
+      display: grid;
+      gap: var(--space-5);
+      margin-top: var(--space-5);
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-4) 0;
+    }
+
+    .panel h3 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .panel-sub {
+      color: var(--muted);
+      font-size: .92rem;
+      padding: .25rem var(--space-4) var(--space-4);
+      margin: 0;
+    }
+
+    .scenario-list {
+      display: grid;
+      gap: var(--space-3);
+      padding: 0 var(--space-4) var(--space-4);
+    }
+
+    .scenario {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface-2);
+      padding: var(--space-4);
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .scenario-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+
+    .scenario-title {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .scenario-desc {
+      margin: .3rem 0 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .35rem .65rem;
+      border-radius: 999px;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+      white-space: nowrap;
+      border: 1px solid transparent;
+    }
+
+    .badge.success {
+      background: rgba(47, 109, 29, .12);
+      color: var(--success);
+    }
+
+    .badge.warn {
+      background: rgba(150, 66, 25, .13);
+      color: var(--warn);
+    }
+
+    .badge.danger {
+      background: rgba(161, 53, 68, .13);
+      color: var(--danger);
+    }
+
+    .badge.info {
+      background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+      color: var(--primary);
+    }
+
+    .scenario-actions {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 14px;
+      min-height: 46px;
+      padding: 0 1rem;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform .18s ease, opacity .18s ease, background .18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: var(--surface-3);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn[disabled] {
+      opacity: .6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .flow {
+      display: grid;
+      gap: .6rem;
+    }
+
+    .flow-step {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: .8rem;
+      align-items: start;
+      padding: .75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .flow-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: .78rem;
+      font-weight: 800;
+      background: color-mix(in srgb, var(--primary) 12%, var(--surface));
+      color: var(--primary);
+    }
+
+    .flow-step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .91rem;
+    }
+
+    .console {
+      background: #101214;
+      color: #d8f6e0;
+      border-radius: 16px;
+      padding: var(--space-4);
+      min-height: 220px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .83rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow: auto;
+    }
+
+    .results {
+      padding: 0 var(--space-4) var(--space-4);
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .summary-grid {
+      display: grid;
+      gap: var(--space-3);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .summary-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: var(--space-4);
+    }
+
+    .summary-card span {
+      color: var(--muted);
+      font-size: .8rem;
+      display: block;
+      margin-bottom: .35rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .summary-card strong {
+      font-size: 1rem;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 520px;
+      background: var(--surface);
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: .85rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: .92rem;
+    }
+
+    th {
+      color: var(--muted);
+      background: var(--surface-2);
+    }
+
+    .tiny {
+      font-size: .83rem;
+      color: var(--muted);
+    }
+
+    .notice {
+      margin: 0 var(--space-4) var(--space-4);
+      padding: .9rem 1rem;
+      border: 1px solid rgba(150, 66, 25, .24);
+      background: rgba(150, 66, 25, .08);
+      color: var(--text);
+      border-radius: 14px;
+      font-size: .9rem;
+    }
+
+    .code {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: var(--space-4);
+      overflow: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .82rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .footer-note {
+      padding: 0 var(--space-4) var(--space-4);
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    @media (min-width: 860px) {
+      .app {
+        padding: var(--space-6);
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.3fr .9fr;
+        align-items: end;
+      }
+
+      .layout {
+        grid-template-columns: 1.02fr 1.12fr;
+        align-items: start;
+      }
+
+      .panel.sticky {
+        position: sticky;
+        top: 20px;
+      }
+
+      .stats {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .summary-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 859px) {
+      .panel {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .results {
+        min-width: max-content;
+      }
+
+      .panel>* {
+        min-width: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3Z"></path>
+            <path d="M8.5 12 11 14.5 16 9.5"></path>
+          </svg>
+        </div>
+        <div>
+          <h1>API Trust Boundary Demo</h1>
+        </div>
+      </div>
+      <button class="theme-toggle" data-theme-toggle aria-label="Switch theme">◐</button>
+    </header>
+
+    <section class="hero">
+      <span class="eyebrow">Live interactive security demo</span>
+      <div class="hero-grid">
+        <div>
+          <h2>See four real API failure modes with one click.</h2>
+          <p>This page demonstrates a happy path, token expiry, wrong audience, and browser-side schema validation using
+            your live Auth0 tenant and AWS API Gateway endpoint. The interface explains the flow step by step without
+            DevTools.</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>4</strong><span class="tiny">Scenarios</span></div>
+          <div class="stat"><strong>Auth0</strong><span class="tiny">Token issuer</span></div>
+          <div class="stat"><strong>AWS</strong><span class="tiny">Gateway + Lambda</span></div>
+          <div class="stat"><strong>Client-side</strong><span class="tiny">Validation layer</span></div>
+        </div>
+      </div>
+    </section>
+
+    <main class="layout">
+      <section class="panel sticky">
+        <div class="panel-head">
+          <h3>Scenario controls</h3>
+          <span class="badge info">Interactive</span>
+        </div>
+        <p class="panel-sub">Each button obtains or reuses a token, calls the live API, and explains what happened
+          behind the scenes.</p>
+
+        <div class="notice">
+          This demo uses a machine-to-machine client credentials flow directly in the browser for demonstration
+          purposes. Auth0 documents the Client Credentials Flow as intended for machine-to-machine applications, and
+          client secrets are meant to remain confidential rather than exposed in browser code. For a production
+          frontend, use a backend or an Authorization Code + PKCE flow
+          instead.
+        </div>
+
+        <div class="scenario-list">
+          <article class="scenario">
+            <div class="scenario-top">
+              <div>
+                <h4 class="scenario-title">1. Happy scenario</h4>
+                <p class="scenario-desc">Fetch a valid token, call the protected prices endpoint, and render normalized
+                  price rows.</p>
+              </div>
+              <span class="badge success">Allowed</span>
+            </div>
+            <div class="scenario-actions">
+              <button class="btn btn-primary" data-action="happy">Run happy path</button>
+            </div>
+            <div class="flow">
+              <div class="flow-step">
+                <div class="flow-dot">1</div>
+                <p>Request a valid access token from Auth0 using the happy-path client.</p>
+              </div>
+              <div class="flow-step">
+                <div class="flow-dot">2</div>
+                <p>Send the token in the <code>Authorization: Bearer</code> header to API Gateway.</p>
+              </div>
+              <div class="flow-step">
+                <div class="flow-dot">3</div>
+                <p>Render the response only after the browser validation checks pass.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="scenario">
+            <div class="scenario-top">
+              <div>
+                <h4 class="scenario-title">2. Expired token</h4>
+                <p class="scenario-desc">Use the same valid token but wait until it expires, then show the gateway
+                  rejection.</p>
+              </div>
+              <span class="badge warn">401 demo</span>
+            </div>
+            <div class="scenario-actions">
+              <button class="btn btn-secondary" data-action="getTokenOnly">Get token only</button>
+              <button class="btn btn-danger" data-action="expired">Wait and test expiry</button>
+            </div>
+            <div class="flow">
+              <div class="flow-step">
+                <div class="flow-dot">1</div>
+                <p>Obtain a valid token and display its expiry.</p>
+              </div>
+              <div class="flow-step">
+                <div class="flow-dot">2</div>
+                <p>Wait until the token is past its <code>exp</code> timestamp.</p>
+              </div>
+              <div class="flow-step">
+                <div class="flow-dot">3</div>
+                <p>Call API Gateway again and show that the request is rejected before Lambda is invoked.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="scenario">
+            <div class="scenario-top">
+              <div>
+                <h4 class="scenario-title">3. Wrong audience token</h4>
+                <p class="scenario-desc">Request a token for a compromised or incorrect audience and prove that API
+                  Gateway denies it.</p>
+              </div>
+              <span class="badge danger">Blocked</span>
+            </div>
+            <div class="scenario-actions">
+              <button class="btn btn-secondary" data-action="wrongAudience">Run wrong audience scenario</button>
+            </div>
+            <div class="flow">
+              <div class="flow-step">
+                <div class="flow-dot">1</div>
+                <p>Get a token whose <code>aud</code> does not match the API Gateway JWT authorizer.</p>
+              </div>
+              <div class="flow-step">
+                <div class="flow-dot">2</div>
+                <p>Send it to the same protected route.</p>
+              </div>
+              <div class="flow-step">
+                <div class="flow-dot">3</div>
+                <p>Explain that the gateway denied it because the token was minted for a different API audience.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="scenario">
+            <div class="scenario-top">
+              <div>
+                <h4 class="scenario-title">4. Browser-side validation</h4>
+                <p class="scenario-desc">Use a sample upstream payload and show how the browser refuses unsafe data
+                  before rendering.</p>
+              </div>
+              <span class="badge info">Defense in depth</span>
+            </div>
+            <div class="scenario-actions">
+              <button class="btn btn-secondary" data-action="browserGood">Validate safe payload</button>
+              <button class="btn btn-danger" data-action="browserBad">Validate unsafe payload</button>
+            </div>
+            <div class="flow">
+              <div class="flow-step">
+                <div class="flow-dot">1</div>
+                <p>Run client-side schema checks against a payload.</p>
+              </div>
+              <div class="flow-step">
+                <div class="flow-dot">2</div>
+                <p>Accept arrays of items with valid <code>name</code>, <code>price</code>, and <code>currency</code>
+                  types.</p>
+              </div>
+              <div class="flow-step">
+                <div class="flow-dot">3</div>
+                <p>Reject payloads with wrong shapes, wrong types, or suspicious extra fields.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h3>Live output</h3>
+          <span id="statusBadge" class="badge info">Idle</span>
+        </div>
+        <p class="panel-sub">This panel records each step so a visitor can follow the flow without reading source code.
+        </p>
+
+        <div class="results">
+          <div class="summary-grid">
+            <div class="summary-card"><span>Current scenario</span><strong id="summaryScenario">None</strong></div>
+            <div class="summary-card"><span>Token status</span><strong id="summaryToken">No token</strong></div>
+            <div class="summary-card"><span>API result</span><strong id="summaryApi">No request yet</strong></div>
+            <div class="summary-card"><span>Validation</span><strong id="summaryValidation">Not run</strong></div>
+          </div>
+
+          <div class="console" id="console" aria-live="polite"></div>
+
+          <div>
+            <h3 style="margin:0 0 .75rem;">Rendered price data</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Currency</th>
+                  </tr>
+                </thead>
+                <tbody id="priceRows">
+                  <tr>
+                    <td colspan="3" class="tiny">No rows rendered yet.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <h3 style="margin:0 0 .75rem;">Technical details</h3>
+            <div class="code" id="details">Waiting for interaction...</div>
+          </div>
+        </div>
+
+        <p class="footer-note">The Auth0 token call shown here uses the client credentials flow, which is designed for
+          machine-to-machine use rather than browser-based apps. Also note that browsers require
+          proper CORS responses, including allowed origins and headers such as <code>Authorization</code>, for
+          cross-origin token or API requests to succeed.</p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const CONFIG = {
+      auth0TokenUrl: 'https://dev-xzjkklkhxkfex57c.us.auth0.com/oauth/token',
+      apiUrl: 'https://nhnfyjid33.execute-api.us-east-1.amazonaws.com/Demo/prices',
+      goodClient: {
+        client_id: 'l1Yzd3nMpgrnB9SFOHHE3WeNijecc8pg',
+        client_secret: 'oX6SWvovOc0nqKTMnBVP2j1KE_qokIJzOFfInRZsHEdtwP5KjbYJKTB1gUHoEmj5',
+        audience: 'https://aws-mousa-cloud-demo',
+        grant_type: 'client_credentials'
+      },
+      badAudienceClient: {
+        client_id: 'AYkVXoy7dv3KPyn92r4sbvnxAYDo6B6z',
+        client_secret: 'rjPBMGN6N0suX53RWx3TkNYa7L38itDM0P8s9S5ISNt1dKmEYSbseucdCbNE4uLO',
+        audience: 'https://aws-mousa-cloud-demo-compromised-audience',
+        grant_type: 'client_credentials'
+      },
+      sample200: [
+        { name: 'Wireless Mouse', price: 24.99, currency: 'USD' },
+        { name: 'USB-C Cable (2m)', price: 9.49, currency: 'USD' },
+        { name: 'Stainless Steel Water Bottle (750ml)', price: 18.75, currency: 'USD' },
+        { name: 'Desk Lamp (LED)', price: 29.95, currency: 'USD' },
+        { name: 'Noise-Canceling Earbuds', price: 59.0, currency: 'USD' },
+        { name: 'Laptop Stand (Aluminum)', price: 34.5, currency: 'USD' },
+        { name: 'Yoga Mat (6mm)', price: 22.1, currency: 'USD' },
+        { name: 'Backpack (20L)', price: 39.99, currency: 'USD' },
+        { name: 'Smart LED Bulb (A19)', price: 12.99, currency: 'USD' },
+        { name: 'Mechanical Keyboard Switch Pack', price: 16.8, currency: 'USD' }
+      ],
+      unsafeSample: [
+        { name: 'Wireless Mouse', price: '24.99 USD', currency: 'USD' },
+        { name: 'USB-C Cable (2m)', amount: 9.49, currency: 'USD', internalCost: 2.1 },
+        { name: null, price: 18.75, currency: 'USD' }
+      ]
+    };
+
+    const state = {
+      token: null,
+      tokenPayload: null,
+      tokenExpiryMs: null,
+      lastScenario: 'None'
+    };
+
+    const el = {
+      console: document.getElementById('console'),
+      details: document.getElementById('details'),
+      rows: document.getElementById('priceRows'),
+      summaryScenario: document.getElementById('summaryScenario'),
+      summaryToken: document.getElementById('summaryToken'),
+      summaryApi: document.getElementById('summaryApi'),
+      summaryValidation: document.getElementById('summaryValidation'),
+      statusBadge: document.getElementById('statusBadge')
+    };
+
+    const log = (msg = '') => {
+      const stamp = new Date().toLocaleTimeString();
+      el.console.textContent += `[${stamp}] ${msg}\n`;
+      el.console.scrollTop = el.console.scrollHeight;
+    };
+
+    const resetConsole = (scenario) => {
+      el.console.textContent = '';
+      state.lastScenario = scenario;
+      el.summaryScenario.textContent = scenario;
+      log(`Scenario selected: ${scenario}`);
+    };
+
+    const setStatus = (label, kind = 'info') => {
+      el.statusBadge.textContent = label;
+      el.statusBadge.className = `badge ${kind}`;
+    };
+
+    const clearRows = () => {
+      el.rows.innerHTML = '<tr><td colspan="3" class="tiny">No rows rendered yet.</td></tr>';
+    };
+
+    const renderRows = (items) => {
+      if (!Array.isArray(items) || !items.length) {
+        clearRows();
+        return;
+      }
+      el.rows.innerHTML = items.map(item => `
+        <tr>
+          <td>${escapeHtml(item.name)}</td>
+          <td>$${Number(item.price).toFixed(2)}</td>
+          <td>${escapeHtml(item.currency)}</td>
+        </tr>
+      `).join('');
+    };
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function decodeJwtPayload(token) {
+      const parts = token.split('.');
+      if (parts.length < 2) throw new Error('Token format invalid');
+      const base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64.padEnd(Math.ceil(base64.length / 4) * 4, '=');
+      return JSON.parse(atob(padded));
+    }
+
+    async function getToken(kind = 'good') {
+      const payload = kind === 'good' ? CONFIG.goodClient : CONFIG.badAudienceClient;
+      log(`Requesting ${kind === 'good' ? 'valid' : 'wrong-audience'} token from Auth0...`);
+      const res = await fetch(CONFIG.auth0TokenUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Token request failed: ${res.status} ${text}`);
+      }
+
+      const data = await res.json();
+      const tokenPayload = decodeJwtPayload(data.access_token);
+      state.token = data.access_token;
+      state.tokenPayload = tokenPayload;
+      state.tokenExpiryMs = tokenPayload.exp ? tokenPayload.exp * 1000 : null;
+      el.summaryToken.textContent = `${kind === 'good' ? 'Valid' : 'Wrong audience'} token`;
+      log(`Token received. iss=${tokenPayload.iss}`);
+      log(`Token audience: ${Array.isArray(tokenPayload.aud) ? tokenPayload.aud.join(', ') : tokenPayload.aud}`);
+      log(`Token expires at: ${state.tokenExpiryMs ? new Date(state.tokenExpiryMs).toLocaleTimeString() : 'unknown'}`);
+      return data;
+    }
+
+    async function callApiWithCurrentToken() {
+      if (!state.token) throw new Error('No token available');
+      log('Calling AWS API Gateway with Bearer token...');
+      const res = await fetch(CONFIG.apiUrl, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${state.token}`,
+          'Accept': 'application/json'
+        }
+      });
+
+      const text = await res.text();
+      let parsed = null;
+      try { parsed = text ? JSON.parse(text) : null; } catch (_) { }
+
+      const authHeader = res.headers.get('www-authenticate');
+      log(`API response status: ${res.status}`);
+      if (authHeader) log(`WWW-Authenticate: ${authHeader}`);
+
+      return { res, text, parsed, authHeader };
+    }
+
+    function validatePricePayload(data) {
+      if (!Array.isArray(data)) {
+        throw new Error('Expected an array of price items');
+      }
+      data.forEach((item, index) => {
+        if (!item || typeof item !== 'object') throw new Error(`Item ${index} is not an object`);
+        const keys = Object.keys(item);
+        const allowed = ['name', 'price', 'currency'];
+        const extra = keys.filter(k => !allowed.includes(k));
+        if (extra.length) throw new Error(`Item ${index} contains unsafe extra fields: ${extra.join(', ')}`);
+        if (typeof item.name !== 'string' || !item.name.trim()) throw new Error(`Item ${index} has invalid name`);
+        if (typeof item.price !== 'number' || Number.isNaN(item.price)) throw new Error(`Item ${index} has invalid price type`);
+        if (typeof item.currency !== 'string' || item.currency.length !== 3) throw new Error(`Item ${index} has invalid currency`);
+      });
+      return true;
+    }
+
+    function setDetails(obj) {
+      el.details.textContent = typeof obj === 'string' ? obj : JSON.stringify(obj, null, 2);
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function runHappy() {
+      resetConsole('Happy scenario');
+      setStatus('Running', 'info');
+      clearRows();
+      el.summaryApi.textContent = 'Calling API';
+      el.summaryValidation.textContent = 'Pending';
+      try {
+        await getToken('good');
+        const { res, parsed, text } = await callApiWithCurrentToken();
+        if (!res.ok) throw new Error(`Expected 200 but got ${res.status}: ${text}`);
+        log('Response received. Running browser-side validation on the live payload...');
+        validatePricePayload(parsed);
+        renderRows(parsed);
+        el.summaryApi.textContent = `${res.status} success`;
+        el.summaryValidation.textContent = 'Passed';
+        setDetails({
+          scenario: 'happy',
+          request: {
+            tokenIssuer: state.tokenPayload?.iss,
+            tokenAudience: state.tokenPayload?.aud,
+            api: CONFIG.apiUrl
+          },
+          responseStatus: res.status,
+          itemCount: parsed.length,
+          sampleRow: parsed[0]
+        });
+        setStatus('Success', 'success');
+        log('Happy scenario complete: token accepted, API returned prices, and browser validation passed.');
+      } catch (err) {
+        el.summaryApi.textContent = 'Failed';
+        el.summaryValidation.textContent = 'Failed';
+        setStatus('Error', 'danger');
+        setDetails(String(err.stack || err));
+        log(`Error: ${err.message}`);
+      }
+    }
+
+    async function runGetTokenOnly() {
+      resetConsole('Prepare token for expiry demo');
+      setStatus('Fetching token', 'info');
+      clearRows();
+      el.summaryApi.textContent = 'No API call yet';
+      el.summaryValidation.textContent = 'Not run';
+      try {
+        await getToken('good');
+        const now = Date.now();
+        const msLeft = Math.max(0, (state.tokenExpiryMs || now) - now);
+        el.summaryApi.textContent = 'Token ready';
+        setDetails({
+          scenario: 'get-token-only',
+          expiresAt: new Date(state.tokenExpiryMs).toISOString(),
+          secondsRemaining: Math.round(msLeft / 1000),
+          nextAction: 'Use “Wait and test expiry” before or after the timer runs out.'
+        });
+        setStatus('Token ready', 'success');
+        log(`Token cached in memory. Approx seconds until expiry: ${Math.round(msLeft / 1000)}`);
+      } catch (err) {
+        setStatus('Error', 'danger');
+        setDetails(String(err.stack || err));
+        log(`Error: ${err.message}`);
+      }
+    }
+
+    async function runExpired() {
+      resetConsole('Expired token');
+      setStatus('Waiting', 'warn');
+      clearRows();
+      el.summaryValidation.textContent = 'Not run';
+      try {
+        if (!state.token || !state.tokenExpiryMs || Date.now() >= state.tokenExpiryMs) {
+          log('No unexpired token in memory, so a fresh valid token will be requested first.');
+          await getToken('good');
+        }
+        const waitMs = Math.max(0, state.tokenExpiryMs - Date.now()) + 1200;
+        log(`Waiting ${Math.ceil(waitMs / 1000)} seconds to move past token expiry...`);
+        await sleep(waitMs);
+        el.summaryToken.textContent = 'Expired token';
+        const { res, parsed, text, authHeader } = await callApiWithCurrentToken();
+        el.summaryApi.textContent = `${res.status} rejected`;
+        setDetails({
+          scenario: 'expired-token',
+          expected: 'API Gateway rejects the request before Lambda executes',
+          responseStatus: res.status,
+          responseBody: parsed || text,
+          wwwAuthenticate: authHeader || null,
+          tokenExp: state.tokenPayload?.exp,
+          nowEpochSeconds: Math.floor(Date.now() / 1000)
+        });
+        if (res.status === 401) {
+          setStatus('Expected 401', 'warn');
+          log('Expired token scenario complete: gateway denied the request as expected.');
+        } else {
+          setStatus('Unexpected result', 'danger');
+          log(`Unexpected status returned: ${res.status}`);
+        }
+      } catch (err) {
+        setStatus('Error', 'danger');
+        setDetails(String(err.stack || err));
+        log(`Error: ${err.message}`);
+      }
+    }
+
+    async function runWrongAudience() {
+      resetConsole('Wrong audience token');
+      setStatus('Running', 'danger');
+      clearRows();
+      el.summaryValidation.textContent = 'Not run';
+      try {
+        await getToken('bad');
+        const { res, parsed, text, authHeader } = await callApiWithCurrentToken();
+        el.summaryApi.textContent = `${res.status} rejected`;
+        setDetails({
+          scenario: 'wrong-audience',
+          explanation: 'The token was minted for a different API audience than the one expected by API Gateway.',
+          tokenAudience: state.tokenPayload?.aud,
+          responseStatus: res.status,
+          responseBody: parsed || text,
+          wwwAuthenticate: authHeader || null
+        });
+        if (res.status === 401) {
+          setStatus('Expected 401', 'danger');
+          log('Wrong audience scenario complete: API Gateway denied the token because aud does not match.');
+        } else {
+          setStatus('Unexpected result', 'warn');
+          log(`Unexpected status returned: ${res.status}`);
+        }
+      } catch (err) {
+        setStatus('Error', 'danger');
+        setDetails(String(err.stack || err));
+        log(`Error: ${err.message}`);
+      }
+    }
+
+    async function runBrowserValidation(kind) {
+      const label = kind === 'good' ? 'Browser-side validation: safe payload' : 'Browser-side validation: unsafe payload';
+      resetConsole(label);
+      setStatus('Validating', kind === 'good' ? 'success' : 'warn');
+      clearRows();
+      el.summaryApi.textContent = 'Local payload only';
+      try {
+        const payload = kind === 'good' ? structuredClone(CONFIG.sample200) : structuredClone(CONFIG.unsafeSample);
+        log('Skipping network call and validating a sample payload in the browser to show defense in depth.');
+        log(`Payload contains ${payload.length} item(s).`);
+        validatePricePayload(payload);
+        renderRows(payload);
+        el.summaryValidation.textContent = 'Passed';
+        setDetails({ scenario: 'browser-validation', mode: kind, payloadPreview: payload.slice(0, 3) });
+        setStatus('Validation passed', 'success');
+        log('Payload accepted. Rendering is allowed.');
+      } catch (err) {
+        el.summaryValidation.textContent = 'Rejected';
+        setDetails({
+          scenario: 'browser-validation',
+          mode: kind,
+          rejectionReason: err.message,
+          unsafePayload: kind === 'bad' ? CONFIG.unsafeSample : null
+        });
+        setStatus('Rejected by client', 'danger');
+        log(`Browser-side validation rejected the payload: ${err.message}`);
+      }
+    }
+
+    document.querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const action = btn.dataset.action;
+        const buttons = [...document.querySelectorAll('[data-action]')];
+        buttons.forEach(b => b.disabled = true);
+        try {
+          if (action === 'happy') await runHappy();
+          if (action === 'getTokenOnly') await runGetTokenOnly();
+          if (action === 'expired') await runExpired();
+          if (action === 'wrongAudience') await runWrongAudience();
+          if (action === 'browserGood') await runBrowserValidation('good');
+          if (action === 'browserBad') await runBrowserValidation('bad');
+        } finally {
+          buttons.forEach(b => b.disabled = false);
+        }
+      });
+    });
+
+    (function initTheme() {
+      const btn = document.querySelector('[data-theme-toggle]');
+      const root = document.documentElement;
+      let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.setAttribute('data-theme', theme);
+      btn.addEventListener('click', () => {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', theme);
+      });
+    })();
+
+    setStatus('Idle', 'info');
+    clearRows();
+    setDetails('Use the scenario buttons to begin.');
+    log('Demo ready. Choose a scenario to see the request flow.');
+  </script>
+</body>
+
+</html>
