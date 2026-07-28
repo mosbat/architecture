@@ -47,18 +47,19 @@
       --text: #28251d;
       --muted: #6f6c66;
       --faint: #9e9b94;
-      --border: rgba(40, 37, 29, .12);
+      --border: rgba(40, 37, 29, 0.12);
       --primary: #01696f;
       --primary-2: #0c4e54;
+      --primary-highlight: #dbe9e7;
       --success: #2f6d1d;
       --warn: #964219;
       --danger: #a13544;
-      --shadow: 0 12px 32px rgba(32, 28, 22, .08);
+      --shadow: 0 12px 32px rgba(32, 28, 22, 0.08);
       --radius: 18px;
       --radius-sm: 12px;
-      --space-1: .25rem;
-      --space-2: .5rem;
-      --space-3: .75rem;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
       --space-4: 1rem;
       --space-5: 1.25rem;
       --space-6: 1.5rem;
@@ -75,13 +76,14 @@
       --text: #ece7df;
       --muted: #b2ada6;
       --faint: #8b877f;
-      --border: rgba(255, 255, 255, .11);
+      --border: rgba(255, 255, 255, 0.11);
       --primary: #59aab1;
       --primary-2: #7bc5cb;
+      --primary-highlight: #2a3d3f;
       --success: #7fc45f;
       --warn: #d58b58;
       --danger: #ef8e9b;
-      --shadow: 0 16px 40px rgba(0, 0, 0, .28);
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
     }
 
     * {
@@ -90,6 +92,8 @@
 
     html {
       scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
     }
 
     body {
@@ -123,7 +127,7 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: .9rem;
+      gap: 0.9rem;
       min-width: 0;
     }
 
@@ -134,56 +138,56 @@
       display: grid;
       place-items: center;
       background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: white;
+      color: #fff;
       box-shadow: var(--shadow);
       flex: 0 0 auto;
     }
 
     .brand h1 {
-      font-size: clamp(1.15rem, 1rem + .9vw, 1.6rem);
       margin: 0;
+      font-size: clamp(1.15rem, 1rem + 0.9vw, 1.6rem);
       line-height: 1.1;
     }
 
     .brand p {
-      margin: .2rem 0 0;
+      margin: 0.2rem 0 0;
       color: var(--muted);
-      font-size: .92rem;
+      font-size: 0.92rem;
     }
 
     .theme-toggle {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0 0.9rem;
       border: 1px solid var(--border);
+      border-radius: 999px;
       background: var(--surface);
       color: var(--text);
-      border-radius: 999px;
-      min-height: 44px;
-      min-width: 44px;
-      padding: 0 .9rem;
       cursor: pointer;
     }
 
     .hero {
       display: grid;
       gap: var(--space-4);
+      padding: var(--space-6);
       background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 84%, transparent), var(--surface));
       border: 1px solid var(--border);
       border-radius: calc(var(--radius) + 6px);
-      padding: var(--space-6);
       box-shadow: var(--shadow);
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: .5rem;
+      gap: 0.5rem;
       width: fit-content;
-      padding: .4rem .75rem;
+      padding: 0.4rem 0.75rem;
       border-radius: 999px;
       background: color-mix(in srgb, var(--primary) 10%, var(--surface));
       color: var(--primary);
       font-weight: 700;
-      font-size: .78rem;
-      letter-spacing: .03em;
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
     }
 
@@ -207,7 +211,7 @@
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: 1fr;
       gap: var(--space-3);
     }
 
@@ -220,8 +224,8 @@
 
     .stat strong {
       display: block;
+      margin-bottom: 0.25rem;
       font-size: 1.2rem;
-      margin-bottom: .25rem;
     }
 
     .layout {
@@ -252,10 +256,10 @@
     }
 
     .panel-sub {
-      color: var(--muted);
-      font-size: .92rem;
-      padding: .25rem var(--space-4) var(--space-4);
       margin: 0;
+      padding: 0.25rem var(--space-4) var(--space-4);
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
     .scenario-list {
@@ -265,12 +269,12 @@
     }
 
     .scenario {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      background: var(--surface-2);
-      padding: var(--space-4);
       display: grid;
       gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
     }
 
     .scenario-top {
@@ -286,36 +290,36 @@
     }
 
     .scenario-desc {
-      margin: .3rem 0 0;
+      margin: 0.3rem 0 0;
       color: var(--muted);
-      font-size: .92rem;
+      font-size: 0.92rem;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: .35rem .65rem;
+      padding: 0.35rem 0.65rem;
       border-radius: 999px;
-      font-size: .75rem;
-      font-weight: 700;
-      letter-spacing: .02em;
-      white-space: nowrap;
       border: 1px solid transparent;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
     }
 
     .badge.success {
-      background: rgba(47, 109, 29, .12);
+      background: rgba(47, 109, 29, 0.12);
       color: var(--success);
     }
 
     .badge.warn {
-      background: rgba(150, 66, 25, .13);
+      background: rgba(150, 66, 25, 0.13);
       color: var(--warn);
     }
 
     .badge.danger {
-      background: rgba(161, 53, 68, .13);
+      background: rgba(161, 53, 68, 0.13);
       color: var(--danger);
     }
 
@@ -326,7 +330,7 @@
 
     .scenario-actions {
       display: flex;
-      gap: .75rem;
+      gap: 0.75rem;
       flex-wrap: wrap;
     }
 
@@ -338,7 +342,7 @@
       padding: 0 1rem;
       cursor: pointer;
       font-weight: 700;
-      transition: transform .18s ease, opacity .18s ease, background .18s ease;
+      transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;
     }
 
     .btn:hover {
@@ -351,7 +355,7 @@
 
     .btn-primary {
       background: var(--primary);
-      color: white;
+      color: #fff;
     }
 
     .btn-secondary {
@@ -362,26 +366,26 @@
 
     .btn-danger {
       background: var(--danger);
-      color: white;
+      color: #fff;
     }
 
     .btn[disabled] {
-      opacity: .6;
+      opacity: 0.6;
       cursor: not-allowed;
       transform: none;
     }
 
     .flow {
       display: grid;
-      gap: .6rem;
+      gap: 0.6rem;
     }
 
     .flow-step {
       display: grid;
       grid-template-columns: 24px 1fr;
-      gap: .8rem;
+      gap: 0.8rem;
       align-items: start;
-      padding: .75rem;
+      padding: 0.75rem;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -393,7 +397,7 @@
       border-radius: 999px;
       display: grid;
       place-items: center;
-      font-size: .78rem;
+      font-size: 0.78rem;
       font-weight: 800;
       background: color-mix(in srgb, var(--primary) 12%, var(--surface));
       color: var(--primary);
@@ -402,49 +406,50 @@
     .flow-step p {
       margin: 0;
       color: var(--muted);
-      font-size: .91rem;
+      font-size: 0.91rem;
     }
 
     .console {
+      min-height: 220px;
+      padding: var(--space-4);
+      overflow: auto;
       background: #101214;
       color: #d8f6e0;
       border-radius: 16px;
-      padding: var(--space-4);
-      min-height: 220px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .83rem;
+      font-size: 0.83rem;
       line-height: 1.5;
       white-space: pre-wrap;
       word-break: break-word;
-      overflow: auto;
     }
 
     .results {
-      padding: 0 var(--space-4) var(--space-4);
       display: grid;
       gap: var(--space-4);
+      padding: 0 var(--space-4) var(--space-4);
+      min-width: 0;
     }
 
     .summary-grid {
       display: grid;
+      grid-template-columns: 1fr;
       gap: var(--space-3);
-      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .summary-card {
+      padding: var(--space-4);
       background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: var(--space-4);
     }
 
     .summary-card span {
-      color: var(--muted);
-      font-size: .8rem;
       display: block;
-      margin-bottom: .35rem;
+      margin-bottom: 0.35rem;
+      color: var(--muted);
+      font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: .05em;
+      letter-spacing: 0.05em;
     }
 
     .summary-card strong {
@@ -459,56 +464,177 @@
 
     table {
       width: 100%;
-      border-collapse: collapse;
       min-width: 520px;
+      border-collapse: collapse;
       background: var(--surface);
     }
 
     th,
     td {
-      text-align: left;
-      padding: .85rem 1rem;
+      padding: 0.85rem 1rem;
       border-bottom: 1px solid var(--border);
-      font-size: .92rem;
+      text-align: left;
+      font-size: 0.92rem;
     }
 
     th {
-      color: var(--muted);
       background: var(--surface-2);
+      color: var(--muted);
     }
 
     .tiny {
-      font-size: .83rem;
       color: var(--muted);
+      font-size: 0.83rem;
     }
 
     .notice {
       margin: 0 var(--space-4) var(--space-4);
-      padding: .9rem 1rem;
-      border: 1px solid rgba(150, 66, 25, .24);
-      background: rgba(150, 66, 25, .08);
-      color: var(--text);
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(150, 66, 25, 0.24);
       border-radius: 14px;
-      font-size: .9rem;
+      background: rgba(150, 66, 25, 0.08);
+      color: var(--text);
+      font-size: 0.9rem;
     }
 
     .code {
+      padding: var(--space-4);
+      overflow: auto;
       background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: var(--space-4);
-      overflow: auto;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .82rem;
+      font-size: 0.82rem;
       line-height: 1.45;
       white-space: pre-wrap;
       word-break: break-word;
     }
 
     .footer-note {
+      margin: 0;
       padding: 0 var(--space-4) var(--space-4);
       color: var(--muted);
-      font-size: .9rem;
+      font-size: 0.9rem;
+    }
+
+    .problem-solution {
+      display: grid;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+
+    .ps-card {
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .ps-label {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .ps-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+      line-height: 1.25;
+    }
+
+    .ps-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .ps-problem {
+      border-left: 4px solid var(--warn);
+    }
+
+    .ps-solution {
+      border-left: 4px solid var(--success);
+    }
+
+    .ps-impact {
+      border-left: 4px solid var(--danger);
+    }
+
+    .ps-impact a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .ps-impact a:hover {
+      text-decoration: underline;
+    }
+
+    .impact-metrics {
+      display: grid;
+      gap: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    .impact-metric {
+      padding: 0.95rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface-2);
+    }
+
+    .impact-kicker {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .impact-metric strong {
+      display: block;
+      margin-bottom: 0.35rem;
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+
+    .impact-metric p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .impact-source {
+      margin-top: 0.9rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .impact-source a {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .demo-note,
+    .demo-note-footer {
+      margin-top: 12px;
+      color: var(--faint);
+      font-size: 0.92rem;
+      line-height: 1.5;
     }
 
     @media (min-width: 860px) {
@@ -517,7 +643,7 @@
       }
 
       .hero-grid {
-        grid-template-columns: 1.3fr .9fr;
+        grid-template-columns: 1.3fr 0.9fr;
         align-items: end;
       }
 
@@ -538,6 +664,11 @@
       .summary-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
+
+      .problem-solution {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.25rem;
+      }
     }
 
     @media (max-width: 859px) {
@@ -548,10 +679,6 @@
 
       .results {
         min-width: max-content;
-      }
-
-      .panel>* {
-        min-width: 0;
       }
     }
   </style>
@@ -605,6 +732,69 @@
           <div class="stat"><strong>Client-side</strong><span class="tiny">Validation layer</span></div>
         </div>
       </div>
+    </section>
+
+    <p class="demo-note">
+      This demo was designed and built through a human-led process, with AI used to assist with wording, presentation
+      polish, and code refinement.
+    </p>
+
+
+    <section class="problem-solution" aria-labelledby="ps-heading">
+      <h2 id="ps-heading" class="sr-only">Problem and solution</h2>
+
+      <article class="ps-card ps-problem">
+        <span class="ps-label">Problem</span>
+        <h3>Securely consuming third-party APIs is hard to explain and easy to get wrong.</h3>
+        <p>
+          Dev teams need to handle tokens, CORS, request validation, and response handling without exposing secrets
+          or turning integrations into brittle one-off scripts.
+        </p>
+      </article>
+
+      <article class="ps-card ps-solution">
+        <span class="ps-label">Solution</span>
+        <h3>This demo simulates secure API integration scenarios in the browser.</h3>
+        <p>
+          It lets teams observe the flow step by step so they can understand how secure API consumption behaves
+          before the real integration is automated in production.
+        </p>
+      </article>
+      <article class="ps-card ps-impact">
+        <span class="ps-label">Why it matters</span>
+        <h3>Secure third-party API consumption is easy to get wrong.</h3>
+
+        <div class="impact-metrics">
+          <div class="impact-metric">
+            <span class="impact-kicker">Frequency</span>
+            <strong>API incidents are common across modern systems.</strong>
+            <p>Imperva found API insecurity accounted for about 1 in 13 cybersecurity incidents globally.</p>
+          </div>
+
+          <div class="impact-metric">
+            <span class="impact-kicker">Severity</span>
+            <strong>Failures can block access, break trust, and expose data.</strong>
+            <p>This demo shows how token expiry, wrong audience, and unsafe payloads can all stop a request for
+              different reasons.</p>
+          </div>
+
+          <div class="impact-metric">
+            <span class="impact-kicker">Business impact</span>
+            <strong>Insecure APIs have been linked to major financial losses.</strong>
+            <p>Imperva’s study estimated global annual losses from API insecurity at $41B to $75B, while Akamai reported
+              average incident costs above US$580,000 in surveyed APAC markets.</p>
+          </div>
+        </div>
+
+        <p class="impact-source">
+          Sources: <a href="https://www.imperva.com/resources/reports/Imperva-Marsh-McLennan-Report-2022.pdf"
+            target="_blank" rel="noopener noreferrer">Imperva / Marsh McLennan</a>,
+          <a href="https://www.akamai.com/newsroom/press-release/2025-api-security-impact-study" target="_blank"
+            rel="noopener noreferrer">Akamai</a>,
+          <a href="https://owasp.org/API-Security/" target="_blank" rel="noopener noreferrer">OWASP API Security Top
+            10</a>
+        </p>
+      </article>
     </section>
 
     <main class="layout">

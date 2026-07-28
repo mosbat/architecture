@@ -15,16 +15,14 @@
   <meta property="og:description"
     content="Explore a live demo showing browser-based file uploads to a private S3 bucket using short-lived presigned URLs from API Gateway and Lambda." />
   <meta property="og:url" content="https://architecture.mousa-cloud.com/temporary-upload-authorization/" />
-  <meta property="og:image"
-    content="https://architecture.mousa-cloud.com/assets/og/secure-upload.webp" />
+  <meta property="og:image" content="https://architecture.mousa-cloud.com/assets/og/secure-upload.webp" />
   <meta property="og:site_name" content="Mousa Cloud Consulting Ltd" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Temporary Upload Authorization | Presigned S3 Demo" />
   <meta name="twitter:description"
     content="Explore a live demo showing browser-based file uploads to a private S3 bucket using short-lived presigned URLs from API Gateway and Lambda." />
-  <meta name="twitter:image"
-    content="https://architecture.mousa-cloud.com/assets/og/secure-upload.webp" />
+  <meta name="twitter:image" content="https://architecture.mousa-cloud.com/assets/og/secure-upload.webp" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -110,18 +108,17 @@
     *::before,
     *::after {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     html {
       scroll-behavior: smooth;
-      -webkit-text-size-adjust: none;
-      text-size-adjust: none;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
     }
 
     body {
       min-height: 100dvh;
+      margin: 0;
       line-height: 1.6;
       font-family: var(--font-body);
       font-size: var(--text-base);
@@ -154,6 +151,15 @@
       outline: 2px solid var(--color-primary);
       outline-offset: 3px;
       border-radius: var(--radius-sm);
+    }
+
+    img,
+    video,
+    svg,
+    iframe {
+      max-width: 100%;
+      height: auto;
+      display: block;
     }
 
     .container {
@@ -199,7 +205,7 @@
       gap: var(--space-3);
       font-size: var(--text-sm);
       font-weight: 700;
-      letter-spacing: .02em;
+      letter-spacing: 0.02em;
     }
 
     .logo {
@@ -244,23 +250,23 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr .85fr;
+      grid-template-columns: 1fr;
       gap: var(--space-8);
-      align-items: end;
+      align-items: start;
     }
 
     .eyebrow {
       display: inline-flex;
-      gap: .5rem;
+      gap: 0.5rem;
       align-items: center;
-      padding: .45rem .8rem;
+      padding: 0.45rem 0.8rem;
       border-radius: var(--radius-full);
       background: var(--color-primary-highlight);
       color: var(--color-primary);
       font-size: var(--text-xs);
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .08em;
+      letter-spacing: 0.08em;
     }
 
     h1,
@@ -294,7 +300,7 @@
       align-items: center;
       justify-content: center;
       min-height: 44px;
-      padding: .9rem 1.15rem;
+      padding: 0.9rem 1.15rem;
       border-radius: var(--radius-full);
       font-size: var(--text-sm);
       font-weight: 600;
@@ -367,8 +373,8 @@
 
     .section-head {
       display: grid;
-      grid-template-columns: .8fr 1.2fr;
-      gap: var(--space-8);
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
       margin-bottom: var(--space-8);
     }
 
@@ -378,7 +384,7 @@
 
     .grid-3 {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr;
       gap: var(--space-4);
     }
 
@@ -395,25 +401,25 @@
       display: inline-flex;
       align-items: center;
       border-radius: var(--radius-full);
-      padding: .35rem .7rem;
+      padding: 0.35rem 0.7rem;
       background: var(--color-surface-offset);
       font-size: var(--text-xs);
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .06em;
+      letter-spacing: 0.06em;
       color: var(--color-text-muted);
       margin-bottom: var(--space-4);
     }
 
     .upload-layout {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1fr;
       gap: var(--space-6);
     }
 
     .field {
       display: grid;
-      gap: .45rem;
+      gap: 0.45rem;
       margin-bottom: var(--space-4);
     }
 
@@ -426,7 +432,7 @@
     select,
     textarea {
       width: 100%;
-      padding: .9rem 1rem;
+      padding: 0.9rem 1rem;
       border: 1px solid var(--color-border);
       border-radius: var(--radius-md);
       background: var(--color-surface-2);
@@ -495,7 +501,7 @@
 
     .arch-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(140px, 1fr));
+      grid-template-columns: 1fr;
       gap: var(--space-3);
       align-items: center;
     }
@@ -510,7 +516,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: .35rem;
+      gap: 0.35rem;
     }
 
     .arch-node strong {
@@ -521,6 +527,7 @@
       text-align: center;
       color: var(--color-text-faint);
       font-size: 1.4rem;
+      transform: rotate(90deg);
     }
 
     .file-tree {
@@ -554,6 +561,94 @@
       font-size: 0.92em;
     }
 
+    .problem-solution {
+      display: grid;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+
+    .ps-card {
+      display: block;
+      padding: 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      background: var(--color-surface);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ps-label {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface));
+      color: var(--color-primary);
+    }
+
+    .ps-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+      line-height: 1.25;
+    }
+
+    .ps-card p {
+      margin: 0;
+      color: var(--color-text-muted);
+    }
+
+    .ps-problem {
+      border-left: 4px solid var(--color-warning);
+    }
+
+    .ps-solution {
+      border-left: 4px solid var(--color-success);
+    }
+
+    .ps-impact {
+      border-left: 4px solid var(--color-error);
+    }
+
+    @media (min-width: 860px) {
+
+      .hero-grid,
+      .section-head,
+      .upload-layout,
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .section-head {
+        grid-template-columns: 0.8fr 1.2fr;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+        align-items: end;
+      }
+
+      .arch-grid {
+        grid-template-columns: repeat(5, minmax(140px, 1fr));
+      }
+
+      .arch-arrow {
+        transform: none;
+      }
+
+      .problem-solution {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.25rem;
+      }
+    }
+
     @media (max-width: 960px) {
 
       .hero-grid,
@@ -565,10 +660,6 @@
 
       .arch-grid {
         grid-template-columns: 1fr;
-      }
-
-      .arch-arrow {
-        transform: rotate(90deg);
       }
     }
 
@@ -582,13 +673,55 @@
       }
     }
 
-    img,
-    video,
-    svg,
-    iframe {
-      max-width: 100%;
-      height: auto;
+    .impact-metrics {
+      display: grid;
+      gap: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    .impact-metric {
+      padding: 0.95rem 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      background: var(--color-surface-2);
+    }
+
+    .impact-kicker {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      background: var(--color-primary-highlight);
+      color: var(--color-primary);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .impact-metric strong {
       display: block;
+      font-size: var(--text-sm);
+      margin-bottom: 0.35rem;
+      line-height: 1.35;
+    }
+
+    .impact-metric p {
+      margin: 0;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .impact-source {
+      margin-top: 0.9rem;
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+    }
+
+    .impact-source a {
+      color: var(--color-primary);
+      font-weight: 600;
     }
   </style>
 
@@ -663,6 +796,63 @@
           </div>
         </aside>
       </div>
+    </section>
+
+    <section class="" aria-labelledby="ps-heading">
+      <h2 id="ps-heading" class="sr-only">Problem and solution</h2>
+
+      <article class="ps-card ps-problem">
+        <span class="ps-label">Problem</span>
+        <h3>Browsers should not have broad, long-lived access to private storage.</h3>
+        <p>
+          Upload flows need a way to let users send files without exposing bucket credentials or opening the door to
+          unrestricted storage access.
+        </p>
+      </article>
+
+      <article class="ps-card ps-solution">
+        <span class="ps-label">Solution</span>
+        <h3>This demo simulates a short-lived upload authorization flow.</h3>
+        <p>
+          It shows how a browser can request a presigned upload URL, send the file directly to S3, and keep access
+          tightly scoped and temporary.
+        </p>
+      </article>
+
+      <article class="ps-card ps-impact">
+        <span class="ps-label">Why it matters</span>
+        <h3>Browsers should not have broad, long-lived access to private storage.</h3>
+
+        <div class="impact-metrics">
+          <div class="impact-metric">
+            <span class="impact-kicker">Frequency</span>
+            <strong>Misconfigured storage access is a common cloud risk.</strong>
+            <p>OWASP and cloud security guidance consistently treat exposed storage and weak authorization as recurring
+              API and cloud failures.</p>
+          </div>
+
+          <div class="impact-metric">
+            <span class="impact-kicker">Severity</span>
+            <strong>Overbroad upload access can expose sensitive files.</strong>
+            <p>This demo shows why uploads should use short-lived authorization, private buckets, and controlled
+              prefixes instead of broad credentials.</p>
+          </div>
+
+          <div class="impact-metric">
+            <span class="impact-kicker">Business impact</span>
+            <strong>Storage exposure can lead to breach response, cleanup, and trust loss.</strong>
+            <p>Imperva estimated global annual losses from API insecurity at $41B to $75B, highlighting the cost of weak
+              access controls in connected systems.</p>
+          </div>
+        </div>
+
+        <p class="impact-source">
+          Sources: <a href="https://www.imperva.com/resources/reports/Imperva-Marsh-McLennan-Report-2022.pdf"
+            target="_blank" rel="noopener noreferrer">Imperva / Marsh McLennan</a>,
+          <a href="https://owasp.org/API-Security/" target="_blank" rel="noopener noreferrer">OWASP API Security Top
+            10</a>
+        </p>
+      </article>
     </section>
 
     <section id="controls">

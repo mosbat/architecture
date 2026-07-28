@@ -48,189 +48,209 @@
       --border: #374151;
       --danger: #f87171;
       --success: #4ade80;
-      --warning: #fbbf24
+      --warning: #fbbf24;
+      --surface: rgba(17, 24, 39, 0.94);
+      --surface-2: rgba(31, 41, 55, 0.55);
+      --surface-3: #0b1220;
+      --primary: var(--accent);
+      --warn: var(--warning);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
     }
 
     * {
-      box-sizing: border-box
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
     }
 
     body {
       margin: 0;
+      min-height: 100vh;
+      padding: 32px 16px;
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
       color: var(--text);
-      min-height: 100vh;
-      padding: 32px 16px
     }
 
     .container {
       max-width: 1080px;
       margin: 0 auto;
-      padding: 20px
+      padding: 20px;
     }
 
     .hero {
-      margin-bottom: 24px
+      margin-bottom: 24px;
     }
 
     .hero h1 {
       margin: 0 0 10px;
-      font-size: 2rem
+      font-size: clamp(2rem, 1.2rem + 2vw, 3rem);
+      line-height: 1.1;
     }
 
     .hero p {
       margin: 0;
       color: var(--muted);
       line-height: 1.7;
-      max-width: 900px
+      max-width: 900px;
     }
 
     .card {
-      background: rgba(17, 24, 39, .94);
+      padding: 24px;
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 18px;
-      padding: 24px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
-      backdrop-filter: blur(8px)
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .grid,
+    .grid-1 {
+      display: grid;
+      gap: 18px;
     }
 
     .grid {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 18px
+      grid-template-columns: 1fr;
     }
 
     .grid-1 {
-      display: grid;
       grid-template-columns: 1fr;
-      gap: 18px
     }
 
     .full {
-      grid-column: 1/-1
+      grid-column: 1 / -1;
     }
 
     label {
       display: block;
       margin-bottom: 8px;
-      font-weight: 600
+      font-weight: 600;
     }
 
     input,
     button,
     textarea,
     select {
-      font: inherit
+      font: inherit;
     }
 
     input,
     textarea,
     select {
       width: 100%;
-      background: #0b1220;
+      padding: 12px 14px;
+      background: var(--surface-3);
       color: var(--text);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 12px 14px;
-      outline: none
+      outline: none;
     }
 
     input:focus,
     textarea:focus,
     select:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(96, 165, 250, .16)
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.16);
     }
 
     .help {
       margin-top: 6px;
       color: var(--muted);
-      font-size: .92rem;
-      line-height: 1.5
+      font-size: 0.92rem;
+      line-height: 1.5;
     }
 
     .panel {
-      background: rgba(31, 41, 55, .55);
+      padding: 16px;
+      background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 16px
     }
 
     .section-title {
       margin: 0 0 12px;
-      font-size: 1.1rem
+      font-size: 1.1rem;
     }
 
     .actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 18px
+      margin-top: 18px;
     }
 
     button {
+      padding: 12px 18px;
       border: none;
       border-radius: 12px;
-      padding: 12px 18px;
-      cursor: pointer
+      cursor: pointer;
     }
 
     .primary {
       background: var(--accent);
       color: #08111f;
-      font-weight: 700
+      font-weight: 700;
     }
 
     .secondary {
       background: transparent;
       color: var(--text);
       border: 1px solid var(--border);
-      font-weight: 600
+      font-weight: 600;
     }
 
     .ghost {
       background: transparent;
       color: var(--muted);
-      border: 1px solid var(--border)
+      border: 1px solid var(--border);
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
     }
 
     .message {
+      display: none;
       margin-top: 18px;
       padding: 14px 16px;
       border-radius: 12px;
-      display: none;
       white-space: pre-wrap;
-      line-height: 1.55
+      line-height: 1.55;
     }
 
     .message.success {
       display: block;
-      background: rgba(74, 222, 128, .12);
-      border: 1px solid rgba(74, 222, 128, .3);
-      color: var(--success)
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      color: var(--success);
     }
 
     .message.error {
       display: block;
-      background: rgba(248, 113, 113, .12);
-      border: 1px solid rgba(248, 113, 113, .3);
-      color: var(--danger)
+      background: rgba(248, 113, 113, 0.12);
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      color: var(--danger);
     }
 
     .message.info {
       display: block;
-      background: rgba(96, 165, 250, .12);
-      border: 1px solid rgba(96, 165, 250, .3);
-      color: #93c5fd
+      background: rgba(96, 165, 250, 0.12);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      color: #93c5fd;
     }
 
     .response {
+      min-height: 220px;
+      padding: 16px;
       background: #0b1220;
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 16px;
-      min-height: 220px
     }
 
     .response pre {
@@ -238,7 +258,7 @@
       white-space: pre-wrap;
       word-break: break-word;
       line-height: 1.55;
-      font-size: .95rem
+      font-size: 0.95rem;
     }
 
     .badge {
@@ -247,84 +267,213 @@
       gap: 8px;
       padding: 6px 10px;
       border-radius: 999px;
-      font-size: .85rem;
-      font-weight: 700
+      font-size: 0.85rem;
+      font-weight: 700;
     }
 
     .ok {
-      background: rgba(74, 222, 128, .14);
-      color: var(--success)
+      background: rgba(74, 222, 128, 0.14);
+      color: var(--success);
     }
 
     .err {
-      background: rgba(248, 113, 113, .14);
-      color: var(--danger)
+      background: rgba(248, 113, 113, 0.14);
+      color: var(--danger);
     }
 
     .neutral {
-      background: rgba(96, 165, 250, .14);
-      color: #93c5fd
+      background: rgba(96, 165, 250, 0.14);
+      color: #93c5fd;
     }
 
     .row {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      align-items: center
+      align-items: center;
     }
 
     .kv {
       display: grid;
-      grid-template-columns: 140px 1fr;
-      gap: 10px 14px
+      grid-template-columns: 1fr;
+      gap: 10px 14px;
     }
 
     .kv div:nth-child(odd) {
-      color: var(--muted)
+      color: var(--muted);
     }
 
     .small {
-      font-size: .9rem;
-      color: var(--muted)
+      color: var(--muted);
+      font-size: 0.9rem;
     }
 
     .divider {
       height: 1px;
+      margin: 18px 0;
       background: var(--border);
-      margin: 18px 0
     }
 
     .examples {
       display: flex;
       gap: 10px;
-      flex-wrap: wrap
+      flex-wrap: wrap;
     }
 
     .examples button {
       padding: 9px 12px;
-      border-radius: 999px
+      border-radius: 999px;
     }
 
     code {
-      color: #c7d2fe
+      color: #c7d2fe;
     }
 
     .mono {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
-    }
-
-    @media(max-width:860px) {
-      .grid {
-        grid-template-columns: 1fr
-      }
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
 
     .demo-note,
     .demo-note-footer {
-      color: #9ca3af;
+      margin-top: 12px;
+      color: var(--muted);
       font-size: 0.92rem;
       line-height: 1.5;
-      margin-top: 12px;
+    }
+
+    .problem-solution {
+      display: grid;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+
+    .ps-card {
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .ps-label {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .ps-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+      line-height: 1.25;
+    }
+
+    .ps-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .ps-problem {
+      border-left: 4px solid var(--warn);
+    }
+
+    .ps-solution {
+      border-left: 4px solid var(--success);
+    }
+
+    .ps-impact {
+      border-left: 4px solid var(--danger);
+    }
+
+    .ps-impact a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .ps-impact a:hover {
+      text-decoration: underline;
+    }
+
+    .impact-metrics {
+      display: grid;
+      gap: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    .impact-metric {
+      padding: 0.95rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel-2);
+    }
+
+    .impact-kicker {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .impact-metric strong {
+      display: block;
+      margin-bottom: 0.35rem;
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+
+    .impact-metric p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .impact-source {
+      margin-top: 0.9rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .impact-source a {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    @media (min-width: 860px) {
+      body {
+        padding: 40px 24px;
+      }
+
+      .container {
+        padding: 24px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .problem-solution {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.25rem;
+      }
+
+      .kv {
+        grid-template-columns: 140px 1fr;
+      }
     }
   </style>
 </head>
@@ -360,6 +509,64 @@
       This demo was designed and built through a human-led process, with AI used to assist with wording, presentation
       polish, and code refinement.
     </p>
+
+    <section class="problem-solution" aria-labelledby="ps-heading">
+      <h2 id="ps-heading" class="sr-only">Problem and solution</h2>
+
+      <article class="ps-card ps-problem">
+        <span class="ps-label">Problem</span>
+        <h3>API failures are often hard to debug once requests leave the browser.</h3>
+        <p>
+          Dev teams need to understand whether an issue came from validation, an upstream API error, or an internal
+          server failure, and they need clear request IDs and trace IDs to investigate it quickly.
+        </p>
+      </article>
+
+      <article class="ps-card ps-solution">
+        <span class="ps-label">Solution</span>
+        <h3>This demo simulates success and failure scenarios in a controlled way.</h3>
+        <p>
+          It shows a happy path, a validation error, and an internal error so teams can see how logging,
+          stack traces, and response handling help explain what happened.
+        </p>
+      </article>
+
+      <article class="ps-card ps-impact">
+        <span class="ps-label">Why it matters</span>
+        <h3>API failures are often hard to debug once requests leave the browser.</h3>
+
+        <div class="impact-metrics">
+          <div class="impact-metric">
+            <span class="impact-kicker">Frequency</span>
+            <strong>API incidents are common across modern systems.</strong>
+            <p>OWASP treats API logging and monitoring failures as one of the most critical API security risks.</p>
+          </div>
+
+          <div class="impact-metric">
+            <span class="impact-kicker">Severity</span>
+            <strong>Poor observability slows root-cause analysis.</strong>
+            <p>Without clear request IDs, trace IDs, and failure states, validation errors and server failures can look
+              the same.</p>
+          </div>
+
+          <div class="impact-metric">
+            <span class="impact-kicker">Business impact</span>
+            <strong>Detection delays increase operational and financial damage.</strong>
+            <p>OWASP notes that insufficient logging and monitoring can let attackers operate unnoticed long enough to
+              fully compromise systems.</p>
+          </div>
+        </div>
+
+        <p class="impact-source">
+          Sources: <a href="https://owasp.org/API-Security/" target="_blank" rel="noopener noreferrer">OWASP API
+            Security Top 10</a>,
+          <a href="https://owasp.org/Top10/2021/A09_2021-Security_Logging_and_Monitoring_Failures/" target="_blank"
+            rel="noopener noreferrer">OWASP A09:2021</a>,
+          <a href="https://livebook.manning.com/book/secure-apis/chapter-11" target="_blank"
+            rel="noopener noreferrer">Secure APIs: Observability for API security</a>
+        </p>
+      </article>
+    </section>
 
     <div class="card">
       <div class="grid">
